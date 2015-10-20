@@ -1,53 +1,32 @@
 package org.openstreetmap.josm.plugins;
-
-import oauth.signpost.http.HttpResponse;
-import org.openstreetmap.josm.Main;
 import org.openstreetmap.josm.actions.JosmAction;
-import org.openstreetmap.josm.data.Preferences;
+import org.openstreetmap.josm.Main;
 import org.openstreetmap.josm.data.imagery.ImageryInfo;
-import org.openstreetmap.josm.data.osm.Changeset;
-import org.openstreetmap.josm.data.osm.OsmPrimitive;
 import org.openstreetmap.josm.data.osm.event.*;
-import org.openstreetmap.josm.gui.*;
-import org.openstreetmap.josm.gui.io.UploadDialog;
+import org.openstreetmap.josm.gui.MapFrame;
+import org.openstreetmap.josm.gui.MapFrameListener;
+import org.openstreetmap.josm.gui.MapView;
+import org.openstreetmap.josm.gui.Notification;
 import org.openstreetmap.josm.gui.layer.Layer;
 import org.openstreetmap.josm.gui.layer.OsmDataLayer;
-import org.openstreetmap.josm.gui.mappaint.MapPaintStyles;
-import org.openstreetmap.josm.gui.mappaint.MultiCascade;
-import org.openstreetmap.josm.gui.mappaint.StyleSource;
-import org.openstreetmap.josm.gui.mappaint.mapcss.MapCSSStyleSource;
-import org.openstreetmap.josm.gui.preferences.SourceEntry;
-import org.openstreetmap.josm.io.CachedFile;
-import org.openstreetmap.josm.tools.Shortcut;
-import sun.net.www.http.HttpClient;
-
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
-import javax.json.JsonString;
-import javax.json.stream.JsonParser;
 import javax.net.ssl.HttpsURLConnection;
-import javax.print.DocFlavor;
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.prefs.PreferenceChangeListener;
 
 /**
  * Created by aarthychandrasekhar on 09/10/15.
  */
 public class MyPluginAddLayerAction extends JosmAction implements DataSetListenerAdapter.Listener, MapView.LayerChangeListener {
     ArrayList<TaskLayer> taskLayers = new ArrayList<TaskLayer>();
-    ArrayList<TaskFilter> taskFilters = new ArrayList<TaskFilter>();
-    DataSetListener dataSetListenerAdapter;
+    DataSetListenerAdapter dataSetListenerAdapter = new DataSetListenerAdapter(this);
 
     public MyPluginAddLayerAction() {
 
@@ -66,7 +45,7 @@ public class MyPluginAddLayerAction extends JosmAction implements DataSetListene
         mapPaintTitle = "recent edits";
 
 
-         //MapPaintStyles.addStyle(new SourceEntry("https://raw.githubusercontent.com/Andygol/josm-styles/master/created_in_2015.mapcss","Name","description",true));
+        //MapPaintStyles.addStyle(new SourceEntry("https://raw.githubusercontent.com/Andygol/josm-styles/master/created_in_2015.mapcss","Name","description",true));
 
         try {
             URL obj = new URL(url);
@@ -96,14 +75,10 @@ public class MyPluginAddLayerAction extends JosmAction implements DataSetListene
                 taskLayers.add(taskLayer);
             }
 
-           /* if (Main.main.hasEditLayer()) {
-                UploadDialog.getUploadDialog().getChangeset().put("source", "aarthy");
-            }*/
-
             //Editing the changeset comment and source tags
             Main.addMapFrameListener(new MapFrameListener() {
                 @Override
-                public void mapFrameInitialized(MapFrame mapFrame, MapFrame mapFrame1) {
+                public void mapFrameInitialized(final MapFrame mapFrame, MapFrame mapFrame1) {
                     Main.map.addPropertyChangeListener(new PropertyChangeListener() {
                         @Override
                         public void propertyChange(PropertyChangeEvent evt) {
@@ -112,6 +87,7 @@ public class MyPluginAddLayerAction extends JosmAction implements DataSetListene
                     });
                 }
             });
+            MapView.addLayerChangeListener(this);
         } catch (IOException e1) {
             e1.printStackTrace();
             new Notification(e1.toString()).show();
