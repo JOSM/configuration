@@ -37,7 +37,7 @@ public class MyPlugin extends Plugin {
         super(info);
         MainMenu menu = Main.main.menu;
         JMenu loadTaskComponents = menu.addMenu(marktr("Task Components"), KeyEvent.VK_K, menu.getDefaultMenuPos(), HelpUtil.ht("/Plugin/task"));
-        loadTaskComponents.add(new JMenuItem(new MyPluginAddLayerAction()));
+        loadTaskComponents.add(new JMenuItem(new MyPluginAddLayerAction("Load task from Gist")));
 
     }
 }
