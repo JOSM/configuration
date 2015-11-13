@@ -2,7 +2,7 @@
 
 ####  Installing 
 install this plugin by downloading the jar [from here](https://github.com/aarthykc/task-components-JOSM-plugin/releases) and copying it to your JOSM’s plugin folder. You’ll see the ‘task components’ menu item click on it and enter the gist api url. The gist should contain a single JSON adhering to [this format](https://gist.github.com/aarthykc/c02c7c8817084a826110).
-```
+```javascript
 {"task": 
   { "layers": [{"url": 
                "name":  }],
