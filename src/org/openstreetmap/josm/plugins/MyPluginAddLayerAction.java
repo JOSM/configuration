@@ -12,6 +12,8 @@ import org.openstreetmap.josm.gui.MapFrame;
 import org.openstreetmap.josm.gui.MapFrameListener;
 import org.openstreetmap.josm.gui.MapView;
 import org.openstreetmap.josm.gui.Notification;
+import org.openstreetmap.josm.gui.dialogs.FilterDialog;
+import org.openstreetmap.josm.gui.dialogs.FilterTableModel;
 import org.openstreetmap.josm.gui.layer.Layer;
 import org.openstreetmap.josm.gui.layer.OsmDataLayer;
 import org.openstreetmap.josm.gui.mappaint.MapPaintStyles;
@@ -41,10 +43,9 @@ public class MyPluginAddLayerAction extends JosmAction implements DataSetListene
     ArrayList<SourceEntry> mapPaintStyleSourceEntries = new ArrayList<SourceEntry>();
     List<Filter> filterList = new ArrayList<Filter>();
     DataSetListenerAdapter dataSetListenerAdapter = new DataSetListenerAdapter(this);
-    FilterMatcher filterMatcher = new FilterMatcher();
     String changesetSource,changesetComment,filters;
     MapFrameListener mapFrameListener;
-     public MyPluginAddLayerAction(String name) {
+    public MyPluginAddLayerAction(String name) {
         super(name, null, name, null , true);
     }
 
@@ -73,12 +74,11 @@ public class MyPluginAddLayerAction extends JosmAction implements DataSetListene
             changesetSource =  task.getString("source");
             changesetComment = task.getString("comment");
             filters = task.getString("filters");
-
+            new Notification("Filter:"+filters).show();
             Filter f1 = new Filter();
             f1.text = filters;
             f1.hiding = true;
             filterList.add(f1);
-            filterMatcher.update(filterList);
 
 
             for (int i = 0; i < layerArray.size(); i++) {
@@ -103,17 +103,25 @@ public class MyPluginAddLayerAction extends JosmAction implements DataSetListene
                 mapPaintStyleSourceEntries.add(new SourceEntry(mapPaintUrl,mapPaintName,mapPaintDescription,true));
             }
             if(mapFrameListener==null) Main.removeMapFrameListener(mapFrameListener);
-            
+
             mapFrameListener = new MapFrameListener(){
                 @Override
                 public void mapFrameInitialized(final MapFrame mapFrame, MapFrame mapFrame1) {
-
-                    FilterWorker.executeFilters(Main.main.getCurrentDataSet().allPrimitives(), filterMatcher);
                     for (SourceEntry sc : mapPaintStyleSourceEntries) {
-                        MapPaintStyles.addStyle(sc);
+                        boolean flag = false;
+                        List<StyleSource> styleSources = MapPaintStyles.getStyles().getStyleSources();
+                        for(StyleSource ss: styleSources) {
+                            if(ss.url.equals(sc.url)) {
+                                flag = true;
+                            }
+                        }
+                        if(!flag)
+                            MapPaintStyles.addStyle(sc);
                     }
                 }
-        };
+
+
+            };
             Main.addMapFrameListener(mapFrameListener);
             MapView.addLayerChangeListener(this);
         } catch (Exception e1) {
@@ -128,9 +136,6 @@ public class MyPluginAddLayerAction extends JosmAction implements DataSetListene
             //set changeset source and comment
             Main.main.getCurrentDataSet().addChangeSetTag("source", changesetSource);
             Main.main.getCurrentDataSet().addChangeSetTag("comment", changesetComment);
-
-            //set filters
-            FilterWorker.executeFilters(Main.main.getCurrentDataSet().allPrimitives(), filterMatcher);
         }
     }
 
@@ -155,6 +160,11 @@ public class MyPluginAddLayerAction extends JosmAction implements DataSetListene
     }
     private void registerNewLayer(OsmDataLayer layer) {
         layer.data.addDataSetListener(dataSetListenerAdapter);
+        FilterTableModel filterTableModel = Main.map.filterDialog.getFilterModel();
+        for(Filter f: filterList){
+            filterTableModel.addFilter(f);
+            filterTableModel.executeFilters();
+        }
     }
 
     private void unRegisterNewLayer(OsmDataLayer layer) {
