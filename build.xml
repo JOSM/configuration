@@ -11,18 +11,13 @@
 ** Call "ant help" to get possible build targets.
 **
 -->
-<project name="myPlugin" default="dist" basedir=".">
+<project name="task-config" default="dist" basedir=".">
 
     <!-- enter the SVN commit message -->
     <property name="commit.message" value="Commit message"/>
-    <!-- enter the *lowest* JOSM version this plugin is currently compatible with -->
     <property name="plugin.main.version" value="7001"/>
-
-    <!-- Configure these properties (replace "..." accordingly).
-         See http://josm.openstreetmap.de/wiki/DevelopersGuide/DevelopingPlugins
-    -->
     <property name="plugin.author" value="Aarthy KC"/>
-    <property name="plugin.class" value="org.openstreetmap.josm.plugins.MyPlugin"/>
+    <property name="plugin.class" value="org.openstreetmap.josm.plugins.TaskConfigPlugin"/>
     <property name="plugin.description" value="..."/>
     <property name="plugin.icon" value="..."/>
     <property name="plugin.link" value="..."/>

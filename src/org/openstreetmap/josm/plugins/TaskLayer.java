@@ -12,7 +12,6 @@ public class TaskLayer extends TMSLayer {
         imageryInfo.setDefaultMaxZoom(19);
         imageryInfo.setDefaultMinZoom(3);
         imageryInfo.setImageryType(ImageryInfo.ImageryType.TMS);
-
     }
 
     public String getLayerName() {
@@ -24,6 +23,5 @@ public class TaskLayer extends TMSLayer {
     }
 
     String layerName;
-
 }
 

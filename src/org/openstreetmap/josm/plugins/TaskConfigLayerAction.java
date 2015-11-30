@@ -1,35 +1,26 @@
 package org.openstreetmap.josm.plugins;
 import org.openstreetmap.josm.actions.JosmAction;
 import org.openstreetmap.josm.Main;
-import org.openstreetmap.josm.actions.search.SearchCompiler;
 import org.openstreetmap.josm.data.imagery.ImageryInfo;
 import org.openstreetmap.josm.data.osm.Filter;
-import org.openstreetmap.josm.data.osm.FilterMatcher;
-import org.openstreetmap.josm.data.osm.FilterWorker;
 import org.openstreetmap.josm.data.osm.event.*;
-import org.openstreetmap.josm.data.osm.visitor.paint.MapPaintSettings;
 import org.openstreetmap.josm.gui.MapFrame;
 import org.openstreetmap.josm.gui.MapFrameListener;
 import org.openstreetmap.josm.gui.MapView;
 import org.openstreetmap.josm.gui.Notification;
-import org.openstreetmap.josm.gui.dialogs.FilterDialog;
 import org.openstreetmap.josm.gui.dialogs.FilterTableModel;
 import org.openstreetmap.josm.gui.layer.Layer;
 import org.openstreetmap.josm.gui.layer.OsmDataLayer;
 import org.openstreetmap.josm.gui.mappaint.MapPaintStyles;
 import org.openstreetmap.josm.gui.mappaint.StyleSource;
 import org.openstreetmap.josm.gui.preferences.SourceEntry;
-import org.openstreetmap.josm.gui.preferences.map.MapPaintPreference;
 
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
-import javax.json.JsonString;
 import javax.net.ssl.HttpsURLConnection;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
@@ -38,14 +29,14 @@ import java.util.List;
 /**
  * Created by aarthychandrasekhar on 09/10/15.
  */
-public class MyPluginAddLayerAction extends JosmAction implements DataSetListenerAdapter.Listener, MapView.LayerChangeListener {
+public class TaskConfigLayerAction extends JosmAction implements DataSetListenerAdapter.Listener, MapView.LayerChangeListener {
     ArrayList<TaskLayer> taskLayers = new ArrayList<TaskLayer>();
     ArrayList<SourceEntry> mapPaintStyleSourceEntries = new ArrayList<SourceEntry>();
     List<Filter> filterList = new ArrayList<Filter>();
     DataSetListenerAdapter dataSetListenerAdapter = new DataSetListenerAdapter(this);
     String changesetSource,changesetComment,filters;
     MapFrameListener mapFrameListener;
-    public MyPluginAddLayerAction(String name) {
+    public TaskConfigLayerAction(String name) {
         super(name, null, name, null , true);
     }
 
