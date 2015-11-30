@@ -13,8 +13,9 @@ public class TaskConfigPlugin extends Plugin {
 
         final JMenu loadTaskComponents = Main.main.menu.addMenu(
                 "Task config", tr("Task config"), KeyEvent.VK_K,
-                Main.main.menu.getDefaultMenuPos(), HelpUtil.ht("/Plugin/Scripting")
+                Main.main.menu.getDefaultMenuPos(), HelpUtil.ht("/Plugin/task")
         );
+
         loadTaskComponents.add(new JMenuItem(new TaskConfigLayerAction("Load task from Gist")));
     }
 }
