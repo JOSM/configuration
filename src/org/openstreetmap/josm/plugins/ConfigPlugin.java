@@ -6,9 +6,9 @@ import org.openstreetmap.josm.Main;
 import org.openstreetmap.josm.gui.help.HelpUtil;
 import static org.openstreetmap.josm.gui.mappaint.mapcss.ExpressionFactory.Functions.tr;
 
-public class TaskConfigPlugin extends Plugin {
+public class ConfigPlugin extends Plugin {
 
-    public TaskConfigPlugin(PluginInformation info) {
+    public ConfigPlugin(PluginInformation info) {
         super(info);
 
         final JMenu loadTaskComponents = Main.main.menu.addMenu(
@@ -16,6 +16,6 @@ public class TaskConfigPlugin extends Plugin {
                 Main.main.menu.getDefaultMenuPos(), HelpUtil.ht("/Plugin/task")
         );
 
-        loadTaskComponents.add(new JMenuItem(new TaskConfigLayerAction("Load task from Gist")));
+        loadTaskComponents.add(new JMenuItem(new ConfigLayerAction("Load task from Gist")));
     }
 }

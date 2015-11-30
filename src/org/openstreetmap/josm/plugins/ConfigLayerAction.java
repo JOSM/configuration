@@ -29,14 +29,14 @@ import java.util.List;
 /**
  * Created by aarthychandrasekhar on 09/10/15.
  */
-public class TaskConfigLayerAction extends JosmAction implements DataSetListenerAdapter.Listener, MapView.LayerChangeListener {
+public class ConfigLayerAction extends JosmAction implements DataSetListenerAdapter.Listener, MapView.LayerChangeListener {
     ArrayList<TaskLayer> taskLayers = new ArrayList<TaskLayer>();
     ArrayList<SourceEntry> mapPaintStyleSourceEntries = new ArrayList<SourceEntry>();
     List<Filter> filterList = new ArrayList<Filter>();
     DataSetListenerAdapter dataSetListenerAdapter = new DataSetListenerAdapter(this);
     String changesetSource,changesetComment,filters;
     MapFrameListener mapFrameListener;
-    public TaskConfigLayerAction(String name) {
+    public ConfigLayerAction(String name) {
         super(name, null, name, null , true);
     }
 
