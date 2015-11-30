@@ -29,15 +29,17 @@ import java.util.List;
 /**
  * Created by aarthychandrasekhar on 09/10/15.
  */
-public class TaskConfigLayerAction extends JosmAction implements DataSetListenerAdapter.Listener, MapView.LayerChangeListener {
+public class JosmConfigLayerAction extends JosmAction implements DataSetListenerAdapter.Listener, MapView.LayerChangeListener {
     ArrayList<TaskLayer> taskLayers = new ArrayList<TaskLayer>();
     ArrayList<SourceEntry> mapPaintStyleSourceEntries = new ArrayList<SourceEntry>();
     List<Filter> filterList = new ArrayList<Filter>();
     DataSetListenerAdapter dataSetListenerAdapter = new DataSetListenerAdapter(this);
     String changesetSource,changesetComment,filters;
     MapFrameListener mapFrameListener;
-    public TaskConfigLayerAction(String name) {
+    String URL;
+    public JosmConfigLayerAction(String name, String URL) {
         super(name, null, name, null , true);
+        this.URL = URL;
     }
 
     @Override
@@ -45,12 +47,12 @@ public class TaskConfigLayerAction extends JosmAction implements DataSetListener
         for (int j = 0; j < taskLayers.size(); j++) {
             Main.main.removeLayer(taskLayers.get(j));
         }
-        String url = JOptionPane.showInputDialog(Main.parent, "Enter gist URL");
+
         String taskString, layerName, layerUrl;
 
 
         try {
-            URL obj = new URL(url);
+            URL obj = new URL(URL);
             HttpsURLConnection httpURLConnection = (HttpsURLConnection) obj.openConnection();
 
             JsonObject jsonObject = Json.createReader(httpURLConnection.getInputStream()).readObject();
