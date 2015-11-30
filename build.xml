@@ -11,13 +11,13 @@
 ** Call "ant help" to get possible build targets.
 **
 -->
-<project name="task-config" default="dist" basedir=".">
+<project name="josm-config" default="dist" basedir=".">
 
     <!-- enter the SVN commit message -->
     <property name="commit.message" value="Commit message"/>
     <property name="plugin.main.version" value="7001"/>
     <property name="plugin.author" value="Aarthy KC"/>
-    <property name="plugin.class" value="org.openstreetmap.josm.plugins.TaskConfigPlugin"/>
+    <property name="plugin.class" value="org.openstreetmap.josm.plugins.JosmConfigPlugin"/>
     <property name="plugin.description" value="..."/>
     <property name="plugin.icon" value="..."/>
     <property name="plugin.link" value="..."/>
