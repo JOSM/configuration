@@ -36,8 +36,10 @@ public class ConfigLayerAction extends JosmAction implements DataSetListenerAdap
     DataSetListenerAdapter dataSetListenerAdapter = new DataSetListenerAdapter(this);
     String changesetSource,changesetComment,filters;
     MapFrameListener mapFrameListener;
-    public ConfigLayerAction(String name) {
+    String URL;
+    public ConfigLayerAction(String name, String URL) {
         super(name, null, name, null , true);
+        this.URL = URL;
     }
 
     @Override
@@ -45,12 +47,12 @@ public class ConfigLayerAction extends JosmAction implements DataSetListenerAdap
         for (int j = 0; j < taskLayers.size(); j++) {
             Main.main.removeLayer(taskLayers.get(j));
         }
-        String url = JOptionPane.showInputDialog(Main.parent, "Enter gist URL");
+
         String taskString, layerName, layerUrl;
 
 
         try {
-            URL obj = new URL(url);
+            URL obj = new URL(URL);
             HttpsURLConnection httpURLConnection = (HttpsURLConnection) obj.openConnection();
 
             JsonObject jsonObject = Json.createReader(httpURLConnection.getInputStream()).readObject();
