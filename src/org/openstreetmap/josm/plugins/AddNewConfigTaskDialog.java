@@ -3,13 +3,16 @@ package org.openstreetmap.josm.plugins;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import org.openstreetmap.josm.Main;
 import static org.openstreetmap.josm.gui.mappaint.mapcss.ExpressionFactory.Functions.tr;
@@ -32,7 +35,7 @@ public final class AddNewConfigTaskDialog extends JDialog {
         return instance;
     }
 
-    static public final Dimension PREFERRED_SIZE = new Dimension(150, 200);
+    static public final Dimension PREFERRED_SIZE = new Dimension(133, 100);
     private OKAction okAction = null;
     private CancelAction cancelAction = null;
 
@@ -45,11 +48,37 @@ public final class AddNewConfigTaskDialog extends JDialog {
         getContentPane().setLayout(new BorderLayout());
         // basic UI properties
         setModal(true);
-        setSize(PREFERRED_SIZE);
+        //setSize(PREFERRED_SIZE);
         setTitle(tr("Add New Config Task"));
-        JPanel pnlTagGrid = buildButtonRow();
-        getContentPane().add(pnlTagGrid, BorderLayout.CENTER);
 
+        JPanel mainpanel = new JPanel(new GridLayout(2, 1));
+
+        JPanel buildFields = buildFields();
+        mainpanel.add(buildFields);
+        //getContentPane().add(buildFields, BorderLayout.CENTER);
+
+        JPanel pnlButtons = buildButtonRow();
+        mainpanel.add(pnlButtons, BorderLayout.CENTER);
+        //getContentPane().add(pnlButtons, BorderLayout.CENTER);
+        getContentPane().add(mainpanel);
+    }
+
+    protected JPanel buildFields() {
+
+        JPanel jPanel = new JPanel();
+        JLabel jLabelName = new JLabel();
+        JLabel jLabelURL = new JLabel();
+        JTextField jTextFieldName = new JTextField();
+        JTextField jTextFieldURL = new JTextField();
+        jPanel.setLayout(new GridLayout(2, 2, 5, 5));
+        jLabelName.setText("Name of Config Task");
+        jPanel.add(jLabelName);
+        jPanel.add(jTextFieldName);
+        jLabelURL.setText("URL");
+        jPanel.add(jLabelURL);
+        jPanel.add(jTextFieldURL);
+
+        return jPanel;
     }
 
     protected JPanel buildButtonRow() {
