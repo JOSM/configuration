@@ -15,8 +15,7 @@ public class ConfigPlugin extends Plugin {
                 "Task config", tr("Task config"), KeyEvent.VK_K,
                 Main.main.menu.getDefaultMenuPos(), HelpUtil.ht("/Plugin/task")
         );
-        //loadTaskMenu.add(new JMenuItem(new ConfigLayerAction("Load task from Gist")));
-        //menulist(JMenulist);
+        loadTaskMenu.add(new AddNewConfigTaskAction());
         LoadTaskConfig loadTaskConfig = new LoadTaskConfig(loadTaskMenu);
         loadTaskConfig.load();
     }
