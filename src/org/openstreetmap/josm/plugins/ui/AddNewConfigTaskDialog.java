@@ -1,4 +1,4 @@
-package org.openstreetmap.josm.plugins;
+package org.openstreetmap.josm.plugins.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -10,11 +10,11 @@ import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import org.openstreetmap.josm.Main;
+import org.openstreetmap.josm.plugins.ConfigLayerAction;
 import static org.openstreetmap.josm.gui.mappaint.mapcss.ExpressionFactory.Functions.tr;
 import org.openstreetmap.josm.tools.ImageProvider;
 import org.openstreetmap.josm.tools.WindowGeometry;
@@ -25,18 +25,18 @@ import org.openstreetmap.josm.tools.WindowGeometry;
  */
 @SuppressWarnings("serial")
 public final class AddNewConfigTaskDialog extends JDialog {
-    
+
     static private AddNewConfigTaskDialog instance = null;
     JTextField jTextFieldName = new JTextField();
     JTextField jTextFieldURL = new JTextField();
-    
+
     static public AddNewConfigTaskDialog getInstance() {
         if (instance == null) {
             instance = new AddNewConfigTaskDialog();
         }
         return instance;
     }
-    
+
     static public final Dimension PREFERRED_SIZE = new Dimension(80, 150);
     private OKAction okAction = null;
     private CancelAction cancelAction = null;
@@ -45,7 +45,7 @@ public final class AddNewConfigTaskDialog extends JDialog {
     protected AddNewConfigTaskDialog() {
         build();
     }
-    
+
     protected void build() {
         getContentPane().setLayout(new BorderLayout());
         // basic UI properties
@@ -59,7 +59,7 @@ public final class AddNewConfigTaskDialog extends JDialog {
         mainpanel.add(pnlButtons, BorderLayout.CENTER);
         getContentPane().add(mainpanel);
     }
-    
+
     protected JPanel buildFields() {
         JPanel p = new JPanel(new GridLayout(4, 1));
         JLabel jLabelName = new JLabel();
@@ -72,7 +72,7 @@ public final class AddNewConfigTaskDialog extends JDialog {
         p.add(jTextFieldURL);
         return p;
     }
-    
+
     protected JPanel buildButtonRow() {
         //ok and cancel button
         JPanel pnl = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -80,7 +80,7 @@ public final class AddNewConfigTaskDialog extends JDialog {
         pnl.add(new JButton(cancelAction = new CancelAction()));
         return pnl;
     }
-    
+
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
@@ -96,39 +96,37 @@ public final class AddNewConfigTaskDialog extends JDialog {
         }
         super.setVisible(visible);
     }
-    
+
     class CancelAction extends AbstractAction {
-        
+
         public CancelAction() {
             putValue(NAME, tr("Cancel"));
             putValue(SMALL_ICON, ImageProvider.get("cancel"));
             putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0));
             putValue(SHORT_DESCRIPTION, tr("Abort tag editing and close dialog"));
         }
-        
+
         @Override
         public void actionPerformed(ActionEvent arg0) {
             setVisible(false);
         }
     }
-    
+
     class OKAction extends AbstractAction {
-        
+
         public OKAction() {
             putValue(NAME, tr("OK"));
             putValue(SMALL_ICON, ImageProvider.get("ok"));
             putValue(SHORT_DESCRIPTION, tr("Apply edited tags and close dialog"));
             putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("ctrl ENTER"));
         }
-        
+
         @Override
         public void actionPerformed(ActionEvent e) {
-            //JOptionPane.showConfirmDialog(null, jTextFieldName.getText());
-            // JOptionPane.showConfirmDialog(null, jTextFieldURL.getText());
             ConfigLayerAction action = new ConfigLayerAction(jTextFieldName.getText(), jTextFieldURL.getText());
             action.actionPerformed(e);
             setVisible(false);
         }
-        
+
     }
 }

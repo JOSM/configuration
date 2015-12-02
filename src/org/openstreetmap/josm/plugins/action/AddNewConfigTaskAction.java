@@ -1,7 +1,8 @@
-package org.openstreetmap.josm.plugins;
+package org.openstreetmap.josm.plugins.action;
 
 import java.awt.event.ActionEvent;
 import org.openstreetmap.josm.actions.JosmAction;
+import org.openstreetmap.josm.plugins.ui.AddNewConfigTaskDialog;
 
 /**
  *
