@@ -9,6 +9,10 @@ import org.openstreetmap.josm.actions.JosmAction;
  */
 public class AddNewConfigTaskAction extends JosmAction {
 
+    public AddNewConfigTaskAction(String name) {
+        super(name, null, name, null, true);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         AddNewConfigTaskDialog dialog = AddNewConfigTaskDialog.getInstance();
