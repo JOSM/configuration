@@ -11,8 +11,9 @@ import org.openstreetmap.josm.gui.preferences.SourceEntry;
 import static org.openstreetmap.josm.gui.mappaint.mapcss.ExpressionFactory.Functions.tr;
 
 public class ConfigPlugin extends Plugin {
- static ArrayList<TaskLayer> currentLayer = new ArrayList<>();
- static ArrayList<SourceEntry> currentMappaint = new ArrayList<>();
+
+    static ArrayList<TaskLayer> currentLayer = new ArrayList<>();
+    static ArrayList<SourceEntry> currentMappaint = new ArrayList<>();
 
     public ConfigPlugin(PluginInformation info) {
         super(info);
@@ -20,11 +21,14 @@ public class ConfigPlugin extends Plugin {
                 "Task config", tr("Task config"), KeyEvent.VK_K,
                 Main.main.menu.getDefaultMenuPos(), HelpUtil.ht("/Plugin/task")
         );
+        //add  new config task - Action
         loadTaskMenu.add(new JMenuItem(new AddNewConfigTaskAction("Load task from URL")));
+        loadTaskMenu.add(new JSeparator());
+        //  default configuration task
         LoadTaskConfig loadTaskConfig = new LoadTaskConfig(loadTaskMenu);
         loadTaskConfig.load();
-
-
-
+        // clean configuration action
+        loadTaskMenu.add(new JSeparator());
+        loadTaskMenu.add(new JMenuItem(new ClearAction("Clear")));
     }
 }
