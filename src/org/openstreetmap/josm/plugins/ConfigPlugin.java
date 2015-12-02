@@ -1,5 +1,6 @@
 package org.openstreetmap.josm.plugins;
 
+import org.openstreetmap.josm.plugins.action.AddNewConfigTaskAction;
 import java.awt.event.KeyEvent;
 import javax.swing.*;
 import org.openstreetmap.josm.Main;
@@ -15,8 +16,8 @@ public class ConfigPlugin extends Plugin {
                 "Task config", tr("Task config"), KeyEvent.VK_K,
                 Main.main.menu.getDefaultMenuPos(), HelpUtil.ht("/Plugin/task")
         );
-        //loadTaskMenu.add(new JMenuItem(new ConfigLayerAction("Load task from Gist")));
-        //menulist(JMenulist);
+
+        loadTaskMenu.add(new JMenuItem(new AddNewConfigTaskAction("Load task from URL")));
         LoadTaskConfig loadTaskConfig = new LoadTaskConfig(loadTaskMenu);
         loadTaskConfig.load();
     }

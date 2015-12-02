@@ -10,10 +10,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import org.openstreetmap.josm.gui.Notification;
 
-/**
- *
- * @author ruben
- */
 public class LoadTaskConfig {
 
     JMenu jMenu;

@@ -19,7 +19,6 @@ import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.net.ssl.HttpsURLConnection;
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.io.*;
 import java.net.URL;
@@ -44,8 +43,8 @@ public class ConfigLayerAction extends JosmAction implements DataSetListenerAdap
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        for (int j = 0; j < taskLayers.size(); j++) {
-            Main.main.removeLayer(taskLayers.get(j));
+        for (TaskLayer taskLayer : taskLayers) {
+            Main.main.removeLayer(taskLayer);
         }
 
         String taskString, layerName, layerUrl;
