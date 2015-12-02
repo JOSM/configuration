@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e1a9e34d-a309-4342-b059-efdbabd19de4" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/org/openstreetmap/josm/plugins/ClearAction.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/openstreetmap/josm/plugins/ConfigLayerAction.java" afterPath="$PROJECT_DIR$/src/org/openstreetmap/josm/plugins/ConfigLayerAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/openstreetmap/josm/plugins/ClearAction.java" afterPath="$PROJECT_DIR$/src/org/openstreetmap/josm/plugins/ClearAction.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/openstreetmap/josm/plugins/ConfigPlugin.java" afterPath="$PROJECT_DIR$/src/org/openstreetmap/josm/plugins/ConfigPlugin.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/openstreetmap/josm/plugins/LoadTaskConfig.java" afterPath="$PROJECT_DIR$/src/org/openstreetmap/josm/plugins/LoadTaskConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="JOSM-configuration.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -32,7 +29,7 @@
         <entry file="file://$PROJECT_DIR$/src/org/openstreetmap/josm/plugins/ConfigLayerAction.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="157" column="37" selection-start-line="157" selection-start-column="37" selection-end-line="157" selection-end-column="37" />
+              <caret line="113" column="87" selection-start-line="112" selection-start-column="11" selection-end-line="113" selection-end-column="87" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1280#1291#0" expanded="true" />
@@ -43,11 +40,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ConfigPlugin.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ConfigPlugin.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/openstreetmap/josm/plugins/ConfigPlugin.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.44254658">
-              <caret line="19" column="64" selection-start-line="19" selection-start-column="64" selection-end-line="19" selection-end-column="64" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -85,11 +82,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ClearAction.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ClearAction.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/org/openstreetmap/josm/plugins/ClearAction.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="27" column="13" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
+            <state vertical-scroll-proportion="0.6506211">
+              <caret line="34" column="9" selection-start-line="34" selection-start-column="9" selection-end-line="34" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#463#464#0" expanded="true" />
@@ -155,8 +152,8 @@
         <option value="$PROJECT_DIR$/config-list.json" />
         <option value="$PROJECT_DIR$/src/org/openstreetmap/josm/plugins/LoadTaskConfig.java" />
         <option value="$PROJECT_DIR$/src/org/openstreetmap/josm/plugins/ConfigLayerAction.java" />
-        <option value="$PROJECT_DIR$/src/org/openstreetmap/josm/plugins/ClearAction.java" />
         <option value="$PROJECT_DIR$/src/org/openstreetmap/josm/plugins/ConfigPlugin.java" />
+        <option value="$PROJECT_DIR$/src/org/openstreetmap/josm/plugins/ClearAction.java" />
       </list>
     </option>
   </component>
@@ -525,18 +522,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/openstreetmap/josm/plugins/ClearAction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="27" column="13" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#463#464#0" expanded="true" />
-            <element signature="e#514#515#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/openstreetmap/josm/plugins/ui/AddNewConfigTaskDialog.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -553,10 +538,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/openstreetmap/josm/plugins/action/AddNewConfigTaskAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/openstreetmap/josm/plugins/ConfigLayerAction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="157" column="37" selection-start-line="157" selection-start-column="37" selection-end-line="157" selection-end-column="37" />
+          <caret line="113" column="87" selection-start-line="112" selection-start-column="11" selection-end-line="113" selection-end-column="87" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1280#1291#0" expanded="true" />
@@ -566,20 +559,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/openstreetmap/josm/plugins/action/AddNewConfigTaskAction.java">
+    <entry file="file://$PROJECT_DIR$/src/org/openstreetmap/josm/plugins/ConfigPlugin.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding />
+          <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/openstreetmap/josm/plugins/ConfigPlugin.java">
+    <entry file="file://$PROJECT_DIR$/src/org/openstreetmap/josm/plugins/ClearAction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.44254658">
-          <caret line="19" column="64" selection-start-line="19" selection-start-column="64" selection-end-line="19" selection-end-column="64" />
+        <state vertical-scroll-proportion="0.6506211">
+          <caret line="34" column="9" selection-start-line="34" selection-start-column="9" selection-end-line="34" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#463#464#0" expanded="true" />
+            <element signature="e#514#515#0" expanded="true" />
           </folding>
         </state>
       </provider>

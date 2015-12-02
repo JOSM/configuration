@@ -24,5 +24,7 @@ public class ConfigPlugin extends Plugin {
         LoadTaskConfig loadTaskConfig = new LoadTaskConfig(loadTaskMenu);
         loadTaskConfig.load();
 
+
+
     }
 }

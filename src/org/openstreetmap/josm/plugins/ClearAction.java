@@ -35,6 +35,9 @@ public class ClearAction extends JosmAction {
         }
         Main.map.filterDialog.getFilterModel().executeFilters();
 
+        Main.main.getCurrentDataSet().addChangeSetTag("source", "");
+        Main.main.getCurrentDataSet().addChangeSetTag("comment", "");
+
 
     }
 }
