@@ -1,10 +1,11 @@
-package org.openstreetmap.josm.plugins;
+package org.openstreetmap.josm.plugins.action;
 
 import org.openstreetmap.josm.Main;
 import org.openstreetmap.josm.actions.JosmAction;
 import org.openstreetmap.josm.data.osm.Filter;
 import org.openstreetmap.josm.gui.MapView;
 import org.openstreetmap.josm.gui.Notification;
+import org.openstreetmap.josm.plugins.ConfigPlugin;
 
 import java.awt.event.ActionEvent;
 import java.util.List;
@@ -22,7 +23,7 @@ public class ClearAction extends JosmAction {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        for (int i=0; i<ConfigPlugin.currentLayer.size(); i++){
+        for (int i=0; i< ConfigPlugin.currentLayer.size(); i++){
             Main.main.removeLayer(ConfigPlugin.currentLayer.get(i));
 
            // new Notification("yahallo" + Main.pref.getCollection("mappaint.style.entries")).show();
