@@ -37,7 +37,7 @@ public final class AddNewConfigTaskDialog extends JDialog {
         return instance;
     }
 
-    static public final Dimension PREFERRED_SIZE = new Dimension(80, 150);
+    static public final Dimension PREFERRED_SIZE = new Dimension(80, 300);
     private OKAction okAction = null;
     private CancelAction cancelAction = null;
 

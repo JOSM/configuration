@@ -7,7 +7,6 @@ import javax.swing.*;
 import org.openstreetmap.josm.Main;
 import org.openstreetmap.josm.gui.help.HelpUtil;
 import org.openstreetmap.josm.gui.preferences.SourceEntry;
-import org.openstreetmap.josm.plugins.action.ClearAction;
 
 import static org.openstreetmap.josm.gui.mappaint.mapcss.ExpressionFactory.Functions.tr;
 

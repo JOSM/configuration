@@ -1,4 +1,4 @@
-package org.openstreetmap.josm.plugins.action;
+package org.openstreetmap.josm.plugins;
 
 import org.openstreetmap.josm.Main;
 import org.openstreetmap.josm.actions.JosmAction;

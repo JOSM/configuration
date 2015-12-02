@@ -59,6 +59,9 @@ public class ConfigLayerAction extends JosmAction implements DataSetListenerAdap
             JsonObject task = jsonObject.getJsonObject("task");
             JsonArray layerArray = task.getJsonArray("layers");
             JsonArray mapPaintStyles = task.getJsonArray("mappaints");
+            
+            
+            
             changesetSource =  task.getString("source");
             changesetComment = task.getString("comment");
             filters = task.getString("filters");

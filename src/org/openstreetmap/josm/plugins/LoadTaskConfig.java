@@ -8,7 +8,9 @@ import javax.json.JsonObject;
 import javax.net.ssl.HttpsURLConnection;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import org.openstreetmap.josm.actions.JosmAction;
 import org.openstreetmap.josm.gui.Notification;
+import org.openstreetmap.josm.plugins.action.JOSMConfigAction;
 
 public class LoadTaskConfig {
 
@@ -28,8 +30,7 @@ public class LoadTaskConfig {
                 JsonObject task = tasksArray.getJsonObject(i);
                 String taskname = task.getString("name");
                 String taskURL = task.getString("URL");
-                jMenu.add(new JMenuItem(new ConfigLayerAction(taskname, taskURL)));
-
+                jMenu.add(new JMenuItem(new JOSMConfigAction(taskname, taskURL)));
             }
 
         } catch (IOException e) {
