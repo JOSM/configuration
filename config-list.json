@@ -5,5 +5,9 @@
 	}, {
 		"name": "Bangalore",
 		"URL": "https://gist.githubusercontent.com/aarthykc/c02c7c8817084a826110/raw/4431b026dd59247aec5063eba4aadb4f715d4295/taskingmanager.json"
+	},
+	{
+		"name": "SF buildings",
+		"URL" :"https://gist.githubusercontent.com/Rub21/752074700c3ad6d5f0e8/raw/1f2b6a2fd61a7ae9b977b87579d6ac96b51f82d4/SFbuildings.json"
 	}]
 }
