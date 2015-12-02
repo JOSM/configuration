@@ -1,13 +1,17 @@
 package org.openstreetmap.josm.plugins;
 
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import javax.swing.*;
 import org.openstreetmap.josm.Main;
 import org.openstreetmap.josm.gui.help.HelpUtil;
+import org.openstreetmap.josm.gui.preferences.SourceEntry;
 
 import static org.openstreetmap.josm.gui.mappaint.mapcss.ExpressionFactory.Functions.tr;
 
 public class ConfigPlugin extends Plugin {
+ static ArrayList<TaskLayer> currentLayer = new ArrayList<>();
+ static ArrayList<SourceEntry> currentMappaint = new ArrayList<>();
 
     public ConfigPlugin(PluginInformation info) {
         super(info);
@@ -15,9 +19,8 @@ public class ConfigPlugin extends Plugin {
                 "Task config", tr("Task config"), KeyEvent.VK_K,
                 Main.main.menu.getDefaultMenuPos(), HelpUtil.ht("/Plugin/task")
         );
-        //loadTaskMenu.add(new JMenuItem(new ConfigLayerAction("Load task from Gist")));
-        //menulist(JMenulist);
         LoadTaskConfig loadTaskConfig = new LoadTaskConfig(loadTaskMenu);
         loadTaskConfig.load();
+
     }
 }

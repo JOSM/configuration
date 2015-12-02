@@ -33,9 +33,12 @@ public class LoadTaskConfig {
                 String taskname = task.getString("name");
                 String taskURL = task.getString("URL");
                 jMenu.add(new JMenuItem(new ConfigLayerAction(taskname, taskURL)));
-            }
+
+            }jMenu.add(new JMenuItem(new ClearAction("clear")));
+
         } catch (IOException e) {
-            new Notification(e.toString()).show();
+
+
         }
     }
 

@@ -36,6 +36,7 @@ public class ConfigLayerAction extends JosmAction implements DataSetListenerAdap
     DataSetListenerAdapter dataSetListenerAdapter = new DataSetListenerAdapter(this);
     String changesetSource,changesetComment,filters;
     MapFrameListener mapFrameListener;
+    boolean alreadyLoaded = false;
     String URL;
     public ConfigLayerAction(String name, String URL) {
         super(name, null, name, null , true);
@@ -56,12 +57,7 @@ public class ConfigLayerAction extends JosmAction implements DataSetListenerAdap
             HttpsURLConnection httpURLConnection = (HttpsURLConnection) obj.openConnection();
 
             JsonObject jsonObject = Json.createReader(httpURLConnection.getInputStream()).readObject();
-            JsonObject files = jsonObject.getJsonObject("files");
-            JsonObject taskingmanager = files.getJsonObject("taskingmanager.json");
-            taskString = taskingmanager.getString("content");
-
-            JsonObject taskObject = Json.createReader(new StringReader(taskString)).readObject();
-            JsonObject task = taskObject.getJsonObject("task");
+            JsonObject task = jsonObject.getJsonObject("task");
             JsonArray layerArray = task.getJsonArray("layers");
             JsonArray mapPaintStyles = task.getJsonArray("mappaints");
             changesetSource =  task.getString("source");
@@ -73,7 +69,12 @@ public class ConfigLayerAction extends JosmAction implements DataSetListenerAdap
             f1.hiding = true;
             filterList.add(f1);
 
+            //remove current layers to prevent duplicate layers
+            for (int k =0; k<ConfigPlugin.currentLayer.size(); k++) {
+                Main.main.removeLayer(ConfigPlugin.currentLayer.get(k));
+            }
 
+            //adding new layers
             for (int i = 0; i < layerArray.size(); i++) {
                 JsonObject layer = layerArray.getJsonObject(i);
                 layerUrl = layer.getString("url");
@@ -85,41 +86,24 @@ public class ConfigLayerAction extends JosmAction implements DataSetListenerAdap
 
                 TaskLayer taskLayer = new TaskLayer(imageryInfo);
                 Main.main.addLayer(taskLayer);
+                ConfigPlugin.currentLayer.add(taskLayer);
                 taskLayers.add(taskLayer);
             }
+            //removing current mappaint
+
             for (int j = 0; j < mapPaintStyles.size(); j++) {
                 JsonObject mapPaint = mapPaintStyles.getJsonObject(j);
                 String mapPaintName = mapPaint.getString("name");
                 String mapPaintDescription = mapPaint.getString("description");
                 String mapPaintUrl = mapPaint.getString("url");
-
                 mapPaintStyleSourceEntries.add(new SourceEntry(mapPaintUrl,mapPaintName,mapPaintDescription,true));
             }
-            if(mapFrameListener==null) Main.removeMapFrameListener(mapFrameListener);
 
-            mapFrameListener = new MapFrameListener(){
-                @Override
-                public void mapFrameInitialized(final MapFrame mapFrame, MapFrame mapFrame1) {
-                    for (SourceEntry sc : mapPaintStyleSourceEntries) {
-                        boolean flag = false;
-                        List<StyleSource> styleSources = MapPaintStyles.getStyles().getStyleSources();
-                        for(StyleSource ss: styleSources) {
-                            if(ss.url.equals(sc.url)) {
-                                flag = true;
-                            }
-                        }
-                        if(!flag)
-                            MapPaintStyles.addStyle(sc);
-                    }
-                }
-
-
-            };
-            Main.addMapFrameListener(mapFrameListener);
             MapView.addLayerChangeListener(this);
+            alreadyLoaded = false;
         } catch (Exception e1) {
             e1.printStackTrace();
-            new Notification(e1.toString()).show();
+            new Notification("ConfigLayerAction:"+e1.toString()).show();
         }
     }
 
@@ -152,12 +136,37 @@ public class ConfigLayerAction extends JosmAction implements DataSetListenerAdap
         }
     }
     private void registerNewLayer(OsmDataLayer layer) {
-        layer.data.addDataSetListener(dataSetListenerAdapter);
-        FilterTableModel filterTableModel = Main.map.filterDialog.getFilterModel();
-        for(Filter f: filterList){
-            filterTableModel.addFilter(f);
+        if(alreadyLoaded != true) {
+            layer.data.addDataSetListener(dataSetListenerAdapter);
+            FilterTableModel filterTableModel = Main.map.filterDialog.getFilterModel();
+
+            List<Filter> existingFilters = filterTableModel.getFilters();
+            for (int i = 0; i < existingFilters.size(); i++) {
+                filterTableModel.removeFilter(i);
+
+            }
+
+            for(Filter f: filterList){
+                filterTableModel.addFilter(f);
+            }
+
             filterTableModel.executeFilters();
+//            for (SourceEntry sc : mapPaintStyleSourceEntries) {
+//                boolean flag = false;
+//                List<StyleSource> styleSources = MapPaintStyles.getStyles().getStyleSources();
+//                for (StyleSource ss : styleSources) {
+//                    if (ss.url.equals(sc.url)) {
+//                        flag = true;
+//                    }
+//                }
+//                if (!flag) {
+//                    MapPaintStyles.addStyle(sc);
+//                }
+//            }
+            alreadyLoaded = true;
+
         }
+
     }
 
     private void unRegisterNewLayer(OsmDataLayer layer) {
