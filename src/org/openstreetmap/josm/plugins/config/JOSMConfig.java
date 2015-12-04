@@ -15,7 +15,6 @@ import org.openstreetmap.josm.plugins.util.TaskLayer;
 public class JOSMConfig extends JosmAction {
 
     FilterConfig filterConfig = new FilterConfig();
-    BeanConfig beanConfig = new BeanConfig();
 
     ArrayList<TaskLayer> taskLayers = new ArrayList<TaskLayer>();
     LayerConfig layerConfig = new LayerConfig();
@@ -46,10 +45,9 @@ public class JOSMConfig extends JosmAction {
             ChangesetConfig.setup_commet_source(task.getString("comment"), task.getString("source"));
 
             //filters
-            beanConfig.setActual_filters(task.getString("filters"));
-            Print.print(beanConfig.getPrevious_filters() + "===" + beanConfig.getActual_filters());
-            filterConfig.add_filter(beanConfig);
-            Print.print(beanConfig.getPrevious_filters() + "===" + beanConfig.getActual_filters());
+            BeanConfig.actual_filters = task.getString("filters");
+            filterConfig.add_filter(BeanConfig.previous_filters, BeanConfig.actual_filters);
+            BeanConfig.previous_filters = BeanConfig.actual_filters;
 
         } catch (IOException e1) {
             new Notification("E:" + e1.toString()).show();

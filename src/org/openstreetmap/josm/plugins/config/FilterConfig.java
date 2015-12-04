@@ -16,27 +16,25 @@ public class FilterConfig {
 
 //    FilterTableModel filterTableModel = Main.map.filterDialog.getFilterModel();
 //    List<Filter> existingFilters = filterTableModel.getFilters();
-    public void add_filter(BeanConfig bc) {
+    public void add_filter(String previous_filter, String actual_filter) {
         //Print.print(previous_filter + "-" + actual_filter);
-
         List<Filter> filterList = new ArrayList<>();
-        new Notification("Filter:" + bc.getActual_filters()).show();
+        new Notification("Filter:" + actual_filter).show();
         Filter f1 = new Filter();
-        f1.text = bc.getActual_filters();
+        f1.text = actual_filter;
         f1.hiding = true;
         filterList.add(f1);
 
         FilterTableModel filterTableModel = Main.map.filterDialog.getFilterModel();
         List<Filter> existingFilters = filterTableModel.getFilters();
         //Remove if exist previus configuration?
-        clear_filter(bc.getPrevious_filters());
+        clear_filter(previous_filter);
         //Add filter
         for (Filter f : filterList) {
             filterTableModel.addFilter(f);
         }
         filterTableModel.executeFilters();
 
-        bc.setPrevious_filters(bc.getActual_filters());
     }
 
     public void clear_filter(String filters) {
