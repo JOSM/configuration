@@ -3,17 +3,22 @@ package org.openstreetmap.josm.plugins.config;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.net.ssl.HttpsURLConnection;
 import org.openstreetmap.josm.actions.JosmAction;
 import org.openstreetmap.josm.gui.Notification;
 import org.openstreetmap.josm.plugins.util.Print;
+import org.openstreetmap.josm.plugins.util.TaskLayer;
 
 public class JOSMConfig extends JosmAction {
 
     FilterConfig filterConfig = new FilterConfig();
     BeanConfig beanConfig = new BeanConfig();
+
+    ArrayList<TaskLayer> taskLayers = new ArrayList<TaskLayer>();
+    LayerConfig layerConfig = new LayerConfig();
 
     String URL;
 
@@ -31,8 +36,8 @@ public class JOSMConfig extends JosmAction {
             JsonObject jsonObject = Json.createReader(httpURLConnection.getInputStream()).readObject();
             JsonObject task = jsonObject.getJsonObject("task");
 
-            //layers        
-            LayerConfig.setup_layers(task.getJsonArray("layers"));
+            //layers
+            layerConfig.setup_layers(task.getJsonArray("layers"), taskLayers);
 
             //mappaints
             MapstyleConfig.setup_mappaints(task.getJsonArray("mappaints"));
