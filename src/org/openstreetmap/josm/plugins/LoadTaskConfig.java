@@ -1,5 +1,6 @@
 package org.openstreetmap.josm.plugins;
 
+import org.openstreetmap.josm.plugins.config.JOSMConfig;
 import java.io.IOException;
 import java.net.URL;
 import javax.json.Json;
@@ -10,7 +11,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import org.openstreetmap.josm.actions.JosmAction;
 import org.openstreetmap.josm.gui.Notification;
-import org.openstreetmap.josm.plugins.action.JOSMConfigAction;
 
 public class LoadTaskConfig {
 
@@ -30,7 +30,7 @@ public class LoadTaskConfig {
                 JsonObject task = tasksArray.getJsonObject(i);
                 String taskname = task.getString("name");
                 String taskURL = task.getString("URL");
-                jMenu.add(new JMenuItem(new JOSMConfigAction(taskname, taskURL)));
+                jMenu.add(new JMenuItem(new JOSMConfig(taskname, taskURL)));
             }
 
         } catch (IOException e) {

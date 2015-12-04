@@ -1,4 +1,5 @@
 package org.openstreetmap.josm.plugins;
+import org.openstreetmap.josm.plugins.util.TaskLayer;
 import org.openstreetmap.josm.actions.JosmAction;
 import org.openstreetmap.josm.Main;
 import org.openstreetmap.josm.data.imagery.ImageryInfo;

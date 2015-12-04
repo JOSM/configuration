@@ -1,4 +1,4 @@
-package org.openstreetmap.josm.plugins;
+package org.openstreetmap.josm.plugins.util;
 
 import org.openstreetmap.josm.data.imagery.ImageryInfo;
 import org.openstreetmap.josm.gui.layer.TMSLayer;

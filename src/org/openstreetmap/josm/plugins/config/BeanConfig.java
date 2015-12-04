@@ -1,4 +1,4 @@
-package org.openstreetmap.josm.plugins;
+package org.openstreetmap.josm.plugins.config;
 
 import java.util.ArrayList;
 

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.openstreetmap.josm.plugins.action;
+package org.openstreetmap.josm.plugins.config;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;
@@ -22,19 +22,15 @@ import org.openstreetmap.josm.gui.MapView;
 import org.openstreetmap.josm.gui.Notification;
 import org.openstreetmap.josm.gui.dialogs.FilterTableModel;
 import org.openstreetmap.josm.gui.preferences.SourceEntry;
-import org.openstreetmap.josm.plugins.BeanConfig;
 import org.openstreetmap.josm.plugins.ConfigPlugin;
-import org.openstreetmap.josm.plugins.TaskLayer;
+import org.openstreetmap.josm.plugins.util.TaskLayer;
 
-/**
- *
- * @author ruben
- */
-public class JOSMConfigAction extends JosmAction {
+
+public class JOSMConfig extends JosmAction {
 
     String URL;
 
-    public JOSMConfigAction(String name, String URL) {
+    public JOSMConfig(String name, String URL) {
         super(name, null, name, null, true);
         this.URL = URL;
     }
@@ -71,9 +67,11 @@ public class JOSMConfigAction extends JosmAction {
     }
 
     public void setup_mappaints(JsonArray mappaints) {
- 
+        
+        
+        ArrayList<SourceEntry> mapPaintStyleSourceEntries = new ArrayList<SourceEntry>();
         for (int j = 0; j < mappaints.size(); j++) {
-            JsonObject mapPaint = mapPaintStyles.getJsonObject(j);
+            JsonObject mapPaint = mappaints.getJsonObject(j);
             String mapPaintName = mapPaint.getString("name");
             String mapPaintDescription = mapPaint.getString("description");
             String mapPaintUrl = mapPaint.getString("url");

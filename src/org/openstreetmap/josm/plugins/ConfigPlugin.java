@@ -1,5 +1,6 @@
 package org.openstreetmap.josm.plugins;
 
+import org.openstreetmap.josm.plugins.util.TaskLayer;
 import org.openstreetmap.josm.plugins.action.AddNewConfigTaskAction;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
