@@ -41,4 +41,6 @@ public class ClearAction extends JosmAction {
 
 
     }
+    
+    
 }

@@ -8,8 +8,12 @@ import javax.json.JsonObject;
 import javax.net.ssl.HttpsURLConnection;
 import org.openstreetmap.josm.actions.JosmAction;
 import org.openstreetmap.josm.gui.Notification;
+import org.openstreetmap.josm.plugins.util.Print;
 
 public class JOSMConfig extends JosmAction {
+
+    FilterConfig filterConfig = new FilterConfig();
+    BeanConfig beanConfig = new BeanConfig();
 
     String URL;
 
@@ -27,7 +31,7 @@ public class JOSMConfig extends JosmAction {
             JsonObject jsonObject = Json.createReader(httpURLConnection.getInputStream()).readObject();
             JsonObject task = jsonObject.getJsonObject("task");
 
-            //layers         
+            //layers        
             LayerConfig.setup_layers(task.getJsonArray("layers"));
 
             //mappaints
@@ -37,8 +41,10 @@ public class JOSMConfig extends JosmAction {
             ChangesetConfig.setup_commet_source(task.getString("comment"), task.getString("source"));
 
             //filters
-            FilterConfig filterConfig = new FilterConfig();
-            filterConfig.setup_filter(task.getString("filters"));
+            beanConfig.setActual_filters(task.getString("filters"));
+            Print.print(beanConfig.getPrevious_filters() + "===" + beanConfig.getActual_filters());
+            filterConfig.add_filter(beanConfig);
+            Print.print(beanConfig.getPrevious_filters() + "===" + beanConfig.getActual_filters());
 
         } catch (IOException e1) {
             new Notification("E:" + e1.toString()).show();

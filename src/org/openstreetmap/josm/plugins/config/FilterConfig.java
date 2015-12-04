@@ -14,34 +14,43 @@ import org.openstreetmap.josm.plugins.util.Print;
  */
 public class FilterConfig {
 
-    public static void setup_filter(String filters) {
-        Print.print(filters);
+//    FilterTableModel filterTableModel = Main.map.filterDialog.getFilterModel();
+//    List<Filter> existingFilters = filterTableModel.getFilters();
+    public void add_filter(BeanConfig bc) {
+        //Print.print(previous_filter + "-" + actual_filter);
+
         List<Filter> filterList = new ArrayList<>();
-        new Notification("Filter:" + filters).show();
+        new Notification("Filter:" + bc.getActual_filters()).show();
         Filter f1 = new Filter();
-        f1.text = filters;
+        f1.text = bc.getActual_filters();
         f1.hiding = true;
         filterList.add(f1);
 
         FilterTableModel filterTableModel = Main.map.filterDialog.getFilterModel();
         List<Filter> existingFilters = filterTableModel.getFilters();
-
         //Remove if exist previus configuration?
-        String previus_filter = BeanConfig.filters;
-        if (BeanConfig.filters != null) {
-            for (int i = 0; i < existingFilters.size(); i++) {
-                System.err.println(existingFilters.get(i).text);
-                if (existingFilters.get(i).text.equals(previus_filter)) {
-                    filterTableModel.removeFilter(i);
-                }
-            }
-        }
+        clear_filter(bc.getPrevious_filters());
         //Add filter
         for (Filter f : filterList) {
             filterTableModel.addFilter(f);
         }
         filterTableModel.executeFilters();
-        //Set the new the configuration
-        BeanConfig.filters = filters;
+
+        bc.setPrevious_filters(bc.getActual_filters());
     }
+
+    public void clear_filter(String filters) {
+        FilterTableModel filterTableModel = Main.map.filterDialog.getFilterModel();
+        List<Filter> existingFilters = filterTableModel.getFilters();
+        //Remove if exist previous configuration?
+        if (filters != null) {
+            for (int i = 0; i < existingFilters.size(); i++) {
+                System.err.println(existingFilters.get(i).text);
+                if (existingFilters.get(i).text.equals(filters)) {
+                    filterTableModel.removeFilter(i);
+                }
+            }
+        }
+    }
+
 }
