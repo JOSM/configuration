@@ -5,12 +5,14 @@
  */
 package org.openstreetmap.josm.plugins.config;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import org.openstreetmap.josm.Main;
 import org.openstreetmap.josm.data.osm.Filter;
 import org.openstreetmap.josm.gui.Notification;
 import org.openstreetmap.josm.gui.dialogs.FilterTableModel;
+import org.openstreetmap.josm.plugins.util.Print;
 
 /**
  *
@@ -19,6 +21,7 @@ import org.openstreetmap.josm.gui.dialogs.FilterTableModel;
 public class FilterConfig {
 
     public static void setup_filter(String filters) {
+        Print.print(filters);
         List<Filter> filterList = new ArrayList<>();
         new Notification("Filter:" + filters).show();
         Filter f1 = new Filter();
