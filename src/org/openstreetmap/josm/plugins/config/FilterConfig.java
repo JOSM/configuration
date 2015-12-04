@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.openstreetmap.josm.plugins.config;
 
 import java.util.ArrayList;
@@ -11,6 +6,7 @@ import org.openstreetmap.josm.Main;
 import org.openstreetmap.josm.data.osm.Filter;
 import org.openstreetmap.josm.gui.Notification;
 import org.openstreetmap.josm.gui.dialogs.FilterTableModel;
+import org.openstreetmap.josm.plugins.util.Print;
 
 /**
  *
@@ -19,6 +15,7 @@ import org.openstreetmap.josm.gui.dialogs.FilterTableModel;
 public class FilterConfig {
 
     public static void setup_filter(String filters) {
+        Print.print(filters);
         List<Filter> filterList = new ArrayList<>();
         new Notification("Filter:" + filters).show();
         Filter f1 = new Filter();

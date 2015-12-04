@@ -14,8 +14,10 @@ import org.openstreetmap.josm.Main;
 public class ChangesetConfig {
 
     public static void setup_commet_source(String comment, String source) {
+
        // Main.main.getCurrentDataSet().addChangeSetTag("source", source);
        // Main.main.getCurrentDataSet().addChangeSetTag("comment", comment);
+
     }
 
 }

@@ -41,7 +41,8 @@ public class JOSMConfig extends JosmAction {
             ChangesetConfig.setup_commet_source(task.getString("comment"), task.getString("source"));
 
             //filters
-            FilterConfig.setup_filter(task.getString("filters"));
+            FilterConfig filterConfig = new FilterConfig();
+            filterConfig.setup_filter(task.getString("filters"));
 
         } catch (IOException e1) {
             new Notification("E:" + e1.toString()).show();
