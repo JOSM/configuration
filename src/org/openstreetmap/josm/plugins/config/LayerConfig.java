@@ -6,10 +6,18 @@
 
 package org.openstreetmap.josm.plugins.config;
 
+import javax.json.JsonArray;
+
 /**
  *
  * @author ruben
  */
 public class LayerConfig {
+    
+    public static void setup_layers(JsonArray layers) {
+
+    }
+
+    
     
 }
