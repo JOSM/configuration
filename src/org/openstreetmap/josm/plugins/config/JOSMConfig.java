@@ -50,15 +50,15 @@ public class JOSMConfig extends JosmAction implements DataSetListenerAdapter.Lis
             changesetSource = task.getString("source");
             changesetComment = task.getString("comment");
             //layers
-
             layerConfig.setup_layers(task.getJsonArray("layers"), taskLayers);
 
             //mappaints
             MapstyleConfig.setup_mappaints(task.getJsonArray("mappaints"));
 
             //filters
-            filterConfig.setup_filter(task.getString("filters"));
-
+            BeanConfig.actual_filters = task.getString("filters");
+            filterConfig.add_filter(BeanConfig.previous_filters, BeanConfig.actual_filters);
+            BeanConfig.previous_filters = BeanConfig.actual_filters;
         } catch (IOException e1) {
             new Notification("E:" + e1.toString()).show();
 
