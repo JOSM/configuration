@@ -1,4 +1,5 @@
 package org.openstreetmap.josm.plugins;
+import org.openstreetmap.josm.plugins.config.BeanConfig;
 import org.openstreetmap.josm.plugins.util.TaskLayer;
 import org.openstreetmap.josm.actions.JosmAction;
 import org.openstreetmap.josm.Main;
@@ -73,8 +74,8 @@ public class ConfigLayerAction extends JosmAction implements DataSetListenerAdap
             filterList.add(f1);
 
             //remove current layers to prevent duplicate layers
-            for (int k =0; k<ConfigPlugin.currentLayer.size(); k++) {
-                Main.main.removeLayer(ConfigPlugin.currentLayer.get(k));
+            for (int k =0; k< BeanConfig.currentLayer.size(); k++) {
+                Main.main.removeLayer(BeanConfig.currentLayer.get(k));
             }
 
             //adding new layers
@@ -89,7 +90,7 @@ public class ConfigLayerAction extends JosmAction implements DataSetListenerAdap
 
                 TaskLayer taskLayer = new TaskLayer(imageryInfo);
                 Main.main.addLayer(taskLayer);
-                ConfigPlugin.currentLayer.add(taskLayer);
+                BeanConfig.currentLayer.add(taskLayer);
                 taskLayers.add(taskLayer);
             }
             //removing current mappaint

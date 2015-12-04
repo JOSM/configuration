@@ -17,7 +17,6 @@ public class FilterConfig {
     public static void setup_filter(String filters) {
         Print.print(filters);
         List<Filter> filterList = new ArrayList<>();
-        new Notification("Filter:" + filters).show();
         Filter f1 = new Filter();
         f1.text = filters;
         f1.hiding = true;

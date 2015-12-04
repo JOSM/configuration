@@ -13,7 +13,7 @@ import static org.openstreetmap.josm.gui.mappaint.mapcss.ExpressionFactory.Funct
 
 public class ConfigPlugin extends Plugin {
 
-    public static ArrayList<TaskLayer> currentLayer = new ArrayList<>();
+
     static ArrayList<SourceEntry> currentMappaint = new ArrayList<>();
 
     public ConfigPlugin(PluginInformation info) {

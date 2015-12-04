@@ -27,8 +27,8 @@ public class LayerConfig {
 
 
         //remove current layers to prevent duplicate layers
-        for (int k =0; k< ConfigPlugin.currentLayer.size(); k++) {
-            Main.main.removeLayer(ConfigPlugin.currentLayer.get(k));
+        for (int k =0; k< BeanConfig.currentLayer.size(); k++) {
+            Main.main.removeLayer(BeanConfig.currentLayer.get(k));
         }
 
         //adding new layers
@@ -43,7 +43,7 @@ public class LayerConfig {
 
             TaskLayer taskLayer = new TaskLayer(imageryInfo);
             Main.main.addLayer(taskLayer);
-            ConfigPlugin.currentLayer.add(taskLayer);
+            BeanConfig.currentLayer.add(taskLayer);
             taskLayers.add(taskLayer);
         }
 
