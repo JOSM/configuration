@@ -29,7 +29,7 @@ public class FilterConfig {
     public void clear_filter(String filters) {
         FilterTableModel filterTableModel = Main.map.filterDialog.getFilterModel();
         List<Filter> existingFilters = filterTableModel.getFilters();
-        //Remove if exist previous configuration
+        //Removes previous configuration
         if (filters != null) {
             for (int i = 0; i < existingFilters.size(); i++) {
                 System.err.println(existingFilters.get(i).text);

@@ -26,6 +26,7 @@ public class JOSMConfig extends JosmAction implements DataSetListenerAdapter.Lis
     LayerConfig layerConfig = new LayerConfig();
     FilterConfig filterConfig = new FilterConfig();
     ChangesetConfig changesetConfig = new ChangesetConfig();
+    MapstyleConfig mapstyleConfig = new MapstyleConfig();
 
     //variables
     String changesetSource, changesetComment;
@@ -53,7 +54,7 @@ public class JOSMConfig extends JosmAction implements DataSetListenerAdapter.Lis
             layerConfig.setup_layers(task.getJsonArray("layers"), taskLayers);
 
             //mappaints
-            MapstyleConfig.setup_mappaints(task.getJsonArray("mappaints"));
+            mapstyleConfig.setup_mappaints(task.getJsonArray("mappaints"));
 
             //filters
             BeanConfig.actual_filters = task.getString("filters");
