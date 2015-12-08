@@ -1,24 +1,10 @@
-# task-components-JOSM-plugin
+# JOSM-configuration
 
 ####  Installing 
-install this plugin by downloading the jar [from here](https://github.com/aarthykc/task-components-JOSM-plugin/releases) and copying it to your JOSM’s plugin folder. You’ll see the ‘task components’ menu item click on it and enter the gist api url. The gist should contain a single JSON adhering to [this format](https://gist.github.com/aarthykc/c02c7c8817084a826110).
-```javascript
-{"task": 
-  { "layers": [{"url": 
-               "name":  }],
-      "filters": " ",
-      "comment": " ",
-      "source": " ",
-      "mappaints": [{"name":,
-                    "description":,
-                    "url": }]
-  }
-}
+To install this plugin the user can download the jar [from here](https://github.com/mapbox/JOSM-configuration/releases/tag/v1.1) and copying it to JOSM’s plugin folder.The user can begin by clicking on the ‘task config’ menu item which will provide a list of tasks that the can chose from. The user can choose the task he/she wishes to work on and it will load the configurations automatically. The configurations include setting the layers, mappaint styles, filters, changeset comment and source. Addtionally, it allows the user to switch between tasks without any duplication. It also allows one to make their own task and load the task configuration file which is saved locally. Once the user is done with the task he/she can click `clear` which will clear all task specific configurations.
 
-```
-_All fields are to be filled_
 #### Working
-The plugin currently works by passing a Github gist URL to a specific task configuration file. The gist API is then used to load the JSON from the URL and customize JOSM.
+The plugin currently works by passing clicking the `task config` button which provides a list of tasks to choose from.
 
 ![josm task](https://cloud.githubusercontent.com/assets/10141319/11099079/49e01086-88cf-11e5-88cd-c4a3b8a6db4b.gif)
 
