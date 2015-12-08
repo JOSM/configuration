@@ -35,8 +35,8 @@ public class JOSMConfig extends JosmAction implements DataSetListenerAdapter.Lis
     String URL;
 
 
-    public JOSMConfig(String name, String URL) {
-        super(name, null, name, null, true);
+    public JOSMConfig(String name, String description, String URL) {
+        super(name, null, description, null, true);
         this.URL = URL;
     }
 
@@ -47,19 +47,19 @@ public class JOSMConfig extends JosmAction implements DataSetListenerAdapter.Lis
             URL obj = new URL(URL);
             HttpsURLConnection httpURLConnection = (HttpsURLConnection) obj.openConnection();
             JsonObject jsonObject = Json.createReader(httpURLConnection.getInputStream()).readObject();
-            JsonObject task = jsonObject.getJsonObject("task");
-            changesetSource = task.getString("source");
-            changesetComment = task.getString("comment");
+            JsonObject project = jsonObject.getJsonObject("project");
+            JsonObject changeset = project.getJsonObject("changeset");
+            changesetSource = changeset.getString("source");
+            changesetComment = changeset.getString("comment");
             //layers
-            layerConfig.setup_layers(task.getJsonArray("layers"), taskLayers);
+            layerConfig.setup_layers(project.getJsonArray("imagery"), taskLayers);
 
             //mappaints
-            mapstyleConfig.setup_mappaints(task.getJsonArray("mappaints"));
+            mapstyleConfig.setup_mappaints(project.getJsonArray("mapcss"));
 
             //filters
-            BeanConfig.actual_filters = task.getString("filters");
-            filterConfig.add_filter(BeanConfig.previous_filters, BeanConfig.actual_filters);
-            BeanConfig.previous_filters = BeanConfig.actual_filters;
+            filterConfig.add_filters(project.getJsonArray("filters"));
+
         } catch (IOException e1) {
             new Notification("E:" + e1.toString()).show();
 

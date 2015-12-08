@@ -27,7 +27,7 @@ public class MapstyleConfig {
             String mapPaintName = mapPaint.getString("name");
             String mapPaintDescription = mapPaint.getString("description");
             String mapPaintUrl = mapPaint.getString("url");
-            mapPaintStyleSourceEntries.add(new SourceEntry(mapPaintUrl, mapPaintName, mapPaintDescription, true));
+            mapPaintStyleSourceEntries.add(new SourceEntry(mapPaintUrl, mapPaintName, mapPaintDescription, Boolean.TRUE));
 
             for (SourceEntry sc : mapPaintStyleSourceEntries) {
                 boolean flag = false;
@@ -39,13 +39,14 @@ public class MapstyleConfig {
                 }
                 if (!flag) {
                     MapPaintStyles.addStyle(sc);
-
+                    BeanConfig.mappaints.add(sc.url);
                 }
             }
 
             }
         }
        catch (Exception ex){
+           ex.printStackTrace();
 
        }
 

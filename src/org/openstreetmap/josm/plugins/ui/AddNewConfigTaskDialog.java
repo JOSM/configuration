@@ -135,7 +135,7 @@ public final class AddNewConfigTaskDialog extends JDialog {
 
             if (urlValidator.isValid(jTextFieldURL.toString())) {
 
-                JOSMConfig action = new JOSMConfig(jTextFieldName.getText(), jTextFieldURL.getText());
+                JOSMConfig action = new JOSMConfig(jTextFieldName.getText(), jTextFieldName.getText(), jTextFieldURL.getText());
                 ConfigPlugin.addActionToMenu(action);
                 action.actionPerformed(e);
                 setVisible(false);

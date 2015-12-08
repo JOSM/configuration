@@ -27,8 +27,9 @@ public class LoadTaskConfig {
             for (int i = 0; i < tasksArray.size(); i++) {
                 JsonObject task = tasksArray.getJsonObject(i);
                 String taskname = task.getString("name");
+                String taskDescription = task.getString("description");
                 String taskURL = task.getString("URL");
-                josmConfigs.add(new JOSMConfig(taskname, taskURL));
+                josmConfigs.add(new JOSMConfig(taskname,taskDescription, taskURL));
 
             }  
 
