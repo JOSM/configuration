@@ -1,7 +1,7 @@
 {
 	"tasks": [{
-		"name": "Japan",
-		"URL": "https://gist.githubusercontent.com/aarthykc/c02c7c8817084a826110/raw/bbc1bb69f92feb9935130a6bc9e4f02a6690304a/taskingmanager.json"
+		"name": "Map-feedback",
+		"URL": "https://gist.githubusercontent.com/aarthykc/5426318fb42427a77a16/raw/22c94a3496e560b8071219f3a64dea956ee7b0a2/task.json"
 	}, {
 		"name": "Bangalore",
 		"URL": "https://gist.githubusercontent.com/aarthykc/c02c7c8817084a826110/raw/4431b026dd59247aec5063eba4aadb4f715d4295/taskingmanager.json"
