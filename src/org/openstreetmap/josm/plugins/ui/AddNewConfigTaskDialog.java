@@ -14,8 +14,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import org.openstreetmap.josm.Main;
-import org.openstreetmap.josm.plugins.ConfigLayerAction;
+
 import static org.openstreetmap.josm.gui.mappaint.mapcss.ExpressionFactory.Functions.tr;
+
+import org.openstreetmap.josm.plugins.ConfigPlugin;
+import org.openstreetmap.josm.plugins.LoadTaskConfig;
+import org.openstreetmap.josm.plugins.config.JOSMConfig;
 import org.openstreetmap.josm.tools.ImageProvider;
 import org.openstreetmap.josm.tools.WindowGeometry;
 
@@ -25,6 +29,7 @@ import org.openstreetmap.josm.tools.WindowGeometry;
  */
 @SuppressWarnings("serial")
 public final class AddNewConfigTaskDialog extends JDialog {
+
 
     static private AddNewConfigTaskDialog instance = null;
     JTextField jTextFieldName = new JTextField();
@@ -123,9 +128,11 @@ public final class AddNewConfigTaskDialog extends JDialog {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            ConfigLayerAction action = new ConfigLayerAction(jTextFieldName.getText(), jTextFieldURL.getText());
-            action.actionPerformed(e);
-            setVisible(false);
+             JOSMConfig action = new JOSMConfig(jTextFieldName.getText(), jTextFieldURL.getText());
+             ConfigPlugin.addActionToMenu(action);
+             action.actionPerformed(e);
+             setVisible(false);
+
         }
 
     }

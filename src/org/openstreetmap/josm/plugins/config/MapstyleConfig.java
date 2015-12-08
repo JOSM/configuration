@@ -45,7 +45,9 @@ public class MapstyleConfig {
 
             }
         }
-       catch (Exception ex){}
+       catch (Exception ex){
+
+       }
 
     }
 }
