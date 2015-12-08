@@ -17,6 +17,8 @@ import org.openstreetmap.josm.Main;
 
 import static org.openstreetmap.josm.gui.mappaint.mapcss.ExpressionFactory.Functions.tr;
 
+import org.openstreetmap.josm.data.validation.routines.UrlValidator;
+import org.openstreetmap.josm.gui.Notification;
 import org.openstreetmap.josm.plugins.ConfigPlugin;
 import org.openstreetmap.josm.plugins.LoadTaskConfig;
 import org.openstreetmap.josm.plugins.config.JOSMConfig;
@@ -128,10 +130,21 @@ public final class AddNewConfigTaskDialog extends JDialog {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-             JOSMConfig action = new JOSMConfig(jTextFieldName.getText(), jTextFieldURL.getText());
-             ConfigPlugin.addActionToMenu(action);
-             action.actionPerformed(e);
-             setVisible(false);
+            String[] schemes = {"http","https", "ftp"}; // DEFAULT schemes = "http", "https", "ftp"
+            UrlValidator urlValidator = new UrlValidator(schemes);
+
+            if (urlValidator.isValid(jTextFieldURL.toString())) {
+
+                JOSMConfig action = new JOSMConfig(jTextFieldName.getText(), jTextFieldURL.getText());
+                ConfigPlugin.addActionToMenu(action);
+                action.actionPerformed(e);
+                setVisible(false);
+            }
+
+            else {
+                new Notification("Please enter a valid URL").show();
+
+            }
 
         }
 
