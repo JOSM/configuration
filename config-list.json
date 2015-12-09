@@ -2,7 +2,7 @@
 	"tasks": [{
 		"name": "Map-feedback",
 		"description": "Map feedback configuration",
-		"URL": "https://gist.githubusercontent.com/aarthykc/29c0960ed4af72e4fe32/raw/d0246a1585a3286372d03df24dc50b1d9bdebcb7/task.json"
+		"URL": "https://gist.githubusercontent.com/aarthykc/29c0960ed4af72e4fe32/raw/d09231fddd3b7fbfd6bef7de74efe5b30615c47c/task.json"
 	},
 	{
 		"name": "Sidewalks",
