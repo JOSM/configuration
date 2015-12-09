@@ -133,7 +133,7 @@ public final class AddNewConfigTaskDialog extends JDialog {
             String[] schemes = {"http","https", "ftp"}; // DEFAULT schemes = "http", "https", "ftp"
             UrlValidator urlValidator = new UrlValidator(schemes);
 
-            if (urlValidator.isValid(jTextFieldURL.toString())) {
+            if (!urlValidator.isValid(jTextFieldURL.toString())) {
 
                 JOSMConfig action = new JOSMConfig(jTextFieldName.getText(), jTextFieldName.getText(), jTextFieldURL.getText());
                 ConfigPlugin.addActionToMenu(action);
