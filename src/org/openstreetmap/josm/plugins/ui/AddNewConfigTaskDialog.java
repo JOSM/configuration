@@ -14,8 +14,14 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import org.openstreetmap.josm.Main;
-import org.openstreetmap.josm.plugins.ConfigLayerAction;
+
 import static org.openstreetmap.josm.gui.mappaint.mapcss.ExpressionFactory.Functions.tr;
+
+import org.openstreetmap.josm.data.validation.routines.UrlValidator;
+import org.openstreetmap.josm.gui.Notification;
+import org.openstreetmap.josm.plugins.ConfigPlugin;
+import org.openstreetmap.josm.plugins.LoadTaskConfig;
+import org.openstreetmap.josm.plugins.config.JOSMConfig;
 import org.openstreetmap.josm.tools.ImageProvider;
 import org.openstreetmap.josm.tools.WindowGeometry;
 
@@ -25,6 +31,7 @@ import org.openstreetmap.josm.tools.WindowGeometry;
  */
 @SuppressWarnings("serial")
 public final class AddNewConfigTaskDialog extends JDialog {
+
 
     static private AddNewConfigTaskDialog instance = null;
     JTextField jTextFieldName = new JTextField();
@@ -37,7 +44,7 @@ public final class AddNewConfigTaskDialog extends JDialog {
         return instance;
     }
 
-    static public final Dimension PREFERRED_SIZE = new Dimension(80, 150);
+    static public final Dimension PREFERRED_SIZE = new Dimension(80, 300);
     private OKAction okAction = null;
     private CancelAction cancelAction = null;
 
@@ -123,9 +130,22 @@ public final class AddNewConfigTaskDialog extends JDialog {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            ConfigLayerAction action = new ConfigLayerAction(jTextFieldName.getText(), jTextFieldURL.getText());
-            action.actionPerformed(e);
-            setVisible(false);
+            String[] schemes = {"http","https", "ftp"}; // DEFAULT schemes = "http", "https", "ftp"
+            UrlValidator urlValidator = new UrlValidator(schemes);
+
+            if (!urlValidator.isValid(jTextFieldURL.toString())) {
+
+                JOSMConfig action = new JOSMConfig(jTextFieldName.getText(), jTextFieldName.getText(), jTextFieldURL.getText());
+                ConfigPlugin.addActionToMenu(action);
+                action.actionPerformed(e);
+                setVisible(false);
+            }
+
+            else {
+                new Notification("Please enter a valid URL").show();
+
+            }
+
         }
 
     }
