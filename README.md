@@ -5,7 +5,7 @@ To install this plugin the user can download the jar [from here](https://github.
 
 To add a task locally click on `Load task from URL` this saves your changes locally and terminates once you restart JOSM. The JSON structure is as given below: 
 
-javascript{
+```javascript{
   "project": {
     "type": "task",
     "name": " ",
@@ -35,6 +35,7 @@ javascript{
     "value": " "
   }]
 }
+```
 
 #### Working
 The plugin currently works by passing clicking the `task config` button which provides a list of tasks to choose from.
