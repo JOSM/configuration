@@ -8,6 +8,11 @@
 		"name": "Sidewalks",
 		"description": "Sidewalk configuration",
 		"URL": "https://gist.githubusercontent.com/chtnha/065e0cbf9f283b2de833/raw/b04c13721bc0d0f032894bc27a1552a7aa43b4e1/task.json"
+	},
+	{
+		"name": "Turn Lanes",
+		"description": "Add turn:lanes from imagery",
+		"URL": "https://gist.githubusercontent.com/planemad/9c693d5c9addd07148c4/raw/02f52e972de61822096e6ce77de688ed23589c3e/josm-config-turnlanes.json"
 	}
 	]
 }
