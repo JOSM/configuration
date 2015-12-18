@@ -11,7 +11,7 @@ To install this plugin the user can download the jar [from here](https://github.
 - The configuration for each task includes imagery layers, mappaint styles, filters, changeset comment and source specific for the mapping task.
 - Use `clear` to remove any configureation settings that were applied and restore your environment.
 
-#### Custom configureation
+#### Custom configuration
 - You can make your own task configuration using such a JSON structure
 ```javascript{
   "project": {
