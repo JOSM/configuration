@@ -1,14 +1,13 @@
 package org.openstreetmap.josm.plugins.action;
 
-import org.openstreetmap.josm.Main;
-import org.openstreetmap.josm.actions.JosmAction;
-import org.openstreetmap.josm.data.osm.Filter;
-import org.openstreetmap.josm.gui.MapView;
-import org.openstreetmap.josm.gui.Notification;
-import org.openstreetmap.josm.plugins.ConfigPlugin;
-
 import java.awt.event.ActionEvent;
 import java.util.List;
+
+import org.openstreetmap.josm.Main;
+import org.openstreetmap.josm.actions.JosmAction;
+import org.openstreetmap.josm.data.osm.DataSet;
+import org.openstreetmap.josm.data.osm.Filter;
+import org.openstreetmap.josm.plugins.ConfigPlugin;
 
 /**
  * Created by aarthychandrasekhar on 02/12/15.
@@ -24,7 +23,7 @@ public class ClearAction extends JosmAction {
     public void actionPerformed(ActionEvent e) {
 
         for (int i=0; i< ConfigPlugin.currentLayer.size(); i++){
-            Main.main.removeLayer(ConfigPlugin.currentLayer.get(i));
+            getLayerManager().removeLayer(ConfigPlugin.currentLayer.get(i));
 
            // new Notification("yahallo" + Main.pref.getCollection("mappaint.style.entries")).show();
         }
@@ -36,9 +35,10 @@ public class ClearAction extends JosmAction {
         }
         Main.map.filterDialog.getFilterModel().executeFilters();
 
-        Main.main.getCurrentDataSet().addChangeSetTag("source", "");
-        Main.main.getCurrentDataSet().addChangeSetTag("comment", "");
-
-
+        DataSet ds = getLayerManager().getEditDataSet();
+        if (ds != null) {
+            ds.addChangeSetTag("source", "");
+            ds.addChangeSetTag("comment", "");
+        }
     }
 }

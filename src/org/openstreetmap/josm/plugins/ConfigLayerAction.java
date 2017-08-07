@@ -1,18 +1,19 @@
 package org.openstreetmap.josm.plugins;
-import org.openstreetmap.josm.actions.JosmAction;
 import org.openstreetmap.josm.Main;
+import org.openstreetmap.josm.actions.JosmAction;
 import org.openstreetmap.josm.data.imagery.ImageryInfo;
+import org.openstreetmap.josm.data.osm.DataSet;
 import org.openstreetmap.josm.data.osm.Filter;
-import org.openstreetmap.josm.data.osm.event.*;
-import org.openstreetmap.josm.gui.MapFrame;
+import org.openstreetmap.josm.data.osm.event.AbstractDatasetChangedEvent;
+import org.openstreetmap.josm.data.osm.event.DataSetListenerAdapter;
 import org.openstreetmap.josm.gui.MapFrameListener;
-import org.openstreetmap.josm.gui.MapView;
 import org.openstreetmap.josm.gui.Notification;
 import org.openstreetmap.josm.gui.dialogs.FilterTableModel;
-import org.openstreetmap.josm.gui.layer.Layer;
+import org.openstreetmap.josm.gui.layer.LayerManager.LayerAddEvent;
+import org.openstreetmap.josm.gui.layer.LayerManager.LayerChangeListener;
+import org.openstreetmap.josm.gui.layer.LayerManager.LayerOrderChangeEvent;
+import org.openstreetmap.josm.gui.layer.LayerManager.LayerRemoveEvent;
 import org.openstreetmap.josm.gui.layer.OsmDataLayer;
-import org.openstreetmap.josm.gui.mappaint.MapPaintStyles;
-import org.openstreetmap.josm.gui.mappaint.StyleSource;
 import org.openstreetmap.josm.gui.preferences.SourceEntry;
 
 import javax.json.Json;
@@ -28,7 +29,7 @@ import java.util.List;
 /**
  * Created by aarthychandrasekhar on 09/10/15.
  */
-public class ConfigLayerAction extends JosmAction implements DataSetListenerAdapter.Listener, MapView.LayerChangeListener {
+public class ConfigLayerAction extends JosmAction implements DataSetListenerAdapter.Listener, LayerChangeListener {
     ArrayList<TaskLayer> taskLayers = new ArrayList<TaskLayer>();
     ArrayList<SourceEntry> mapPaintStyleSourceEntries = new ArrayList<SourceEntry>();
     List<Filter> filterList = new ArrayList<Filter>();
@@ -45,10 +46,10 @@ public class ConfigLayerAction extends JosmAction implements DataSetListenerAdap
     @Override
     public void actionPerformed(ActionEvent e) {
         for (TaskLayer taskLayer : taskLayers) {
-            Main.main.removeLayer(taskLayer);
+            getLayerManager().removeLayer(taskLayer);
         }
 
-        String taskString, layerName, layerUrl;
+        String layerName, layerUrl;
 
 
         try {
@@ -70,7 +71,7 @@ public class ConfigLayerAction extends JosmAction implements DataSetListenerAdap
 
             //remove current layers to prevent duplicate layers
             for (int k =0; k<ConfigPlugin.currentLayer.size(); k++) {
-                Main.main.removeLayer(ConfigPlugin.currentLayer.get(k));
+                getLayerManager().removeLayer(ConfigPlugin.currentLayer.get(k));
             }
 
             //adding new layers
@@ -84,7 +85,7 @@ public class ConfigLayerAction extends JosmAction implements DataSetListenerAdap
                 imageryInfo.setName(layerName);
 
                 TaskLayer taskLayer = new TaskLayer(imageryInfo);
-                Main.main.addLayer(taskLayer);
+                getLayerManager().addLayer(taskLayer);
                 ConfigPlugin.currentLayer.add(taskLayer);
                 taskLayers.add(taskLayer);
             }
@@ -98,7 +99,7 @@ public class ConfigLayerAction extends JosmAction implements DataSetListenerAdap
                 mapPaintStyleSourceEntries.add(new SourceEntry(mapPaintUrl,mapPaintName,mapPaintDescription,true));
             }
 
-            MapView.addLayerChangeListener(this);
+            getLayerManager().addLayerChangeListener(this);
             alreadyLoaded = false;
         } catch (Exception e1) {
             e1.printStackTrace();
@@ -108,30 +109,31 @@ public class ConfigLayerAction extends JosmAction implements DataSetListenerAdap
 
     @Override
     public void processDatasetEvent(AbstractDatasetChangedEvent abstractDatasetChangedEvent) {
-        if (Main.main.hasEditLayer()) {
+        DataSet ds = getLayerManager().getEditDataSet();
+        if (ds != null) {
             //set changeset source and comment
-            Main.main.getCurrentDataSet().addChangeSetTag("source", changesetSource);
-            Main.main.getCurrentDataSet().addChangeSetTag("comment", changesetComment);
+            ds.addChangeSetTag("source", changesetSource);
+            ds.addChangeSetTag("comment", changesetComment);
         }
     }
 
     @Override
-    public void activeLayerChange(Layer layer, Layer layer1) {
+    public void layerOrderChanged(LayerOrderChangeEvent e) {
 
     }
 
     @Override
-    public void layerAdded(Layer layer) {
-        if (layer instanceof OsmDataLayer) {
-            registerNewLayer((OsmDataLayer) layer);
+    public void layerAdded(LayerAddEvent e) {
+        if (e.getAddedLayer() instanceof OsmDataLayer) {
+            registerNewLayer((OsmDataLayer) e.getAddedLayer());
         }
     }
 
 
     @Override
-    public void layerRemoved(Layer layer) {
-        if (layer instanceof OsmDataLayer) {
-            unRegisterNewLayer((OsmDataLayer) layer);
+    public void layerRemoving(LayerRemoveEvent e) {
+        if (e.getRemovedLayer() instanceof OsmDataLayer) {
+            unRegisterNewLayer((OsmDataLayer) e.getRemovedLayer());
         }
     }
     private void registerNewLayer(OsmDataLayer layer) {
