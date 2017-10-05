@@ -17,7 +17,7 @@ import org.openstreetmap.josm.Main;
 import org.openstreetmap.josm.plugins.ConfigLayerAction;
 import static org.openstreetmap.josm.gui.mappaint.mapcss.ExpressionFactory.Functions.tr;
 import org.openstreetmap.josm.tools.ImageProvider;
-import org.openstreetmap.josm.tools.WindowGeometry;
+import org.openstreetmap.josm.gui.util.WindowGeometry;
 
 /**
  *
