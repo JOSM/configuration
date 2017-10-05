@@ -1,11 +1,12 @@
 package org.openstreetmap.josm.plugins;
-import org.openstreetmap.josm.Main;
+
 import org.openstreetmap.josm.actions.JosmAction;
 import org.openstreetmap.josm.data.imagery.ImageryInfo;
 import org.openstreetmap.josm.data.osm.DataSet;
 import org.openstreetmap.josm.data.osm.Filter;
 import org.openstreetmap.josm.data.osm.event.AbstractDatasetChangedEvent;
 import org.openstreetmap.josm.data.osm.event.DataSetListenerAdapter;
+import org.openstreetmap.josm.data.preferences.sources.SourceEntry;
 import org.openstreetmap.josm.data.preferences.sources.SourceType;
 import org.openstreetmap.josm.gui.MapFrameListener;
 import org.openstreetmap.josm.gui.Notification;
@@ -15,14 +16,12 @@ import org.openstreetmap.josm.gui.layer.LayerManager.LayerChangeListener;
 import org.openstreetmap.josm.gui.layer.LayerManager.LayerOrderChangeEvent;
 import org.openstreetmap.josm.gui.layer.LayerManager.LayerRemoveEvent;
 import org.openstreetmap.josm.gui.layer.OsmDataLayer;
-import org.openstreetmap.josm.data.preferences.sources.SourceEntry;
 
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.net.ssl.HttpsURLConnection;
 import java.awt.event.ActionEvent;
-import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +36,7 @@ public class ConfigLayerAction extends JosmAction implements DataSetListenerAdap
     ArrayList<SourceEntry> mapPaintStyleSourceEntries = new ArrayList<SourceEntry>();
     List<Filter> filterList = new ArrayList<Filter>();
     DataSetListenerAdapter dataSetListenerAdapter = new DataSetListenerAdapter(this);
-    String changesetSource,changesetComment,filters;
+    String changesetSource,changesetComment;
     MapFrameListener mapFrameListener;
     boolean alreadyLoaded = false;
     String URL;
@@ -60,17 +59,22 @@ public class ConfigLayerAction extends JosmAction implements DataSetListenerAdap
             HttpsURLConnection httpURLConnection = (HttpsURLConnection) obj.openConnection();
 
             JsonObject jsonObject = Json.createReader(httpURLConnection.getInputStream()).readObject();
-            JsonObject task = jsonObject.getJsonObject("task");
-            JsonArray layerArray = task.getJsonArray("layers");
-            JsonArray mapPaintStyles = task.getJsonArray("mappaints");
-            changesetSource =  task.getString("source");
-            changesetComment = task.getString("comment");
-            filters = task.getString("filters");
-            new Notification("Filter:"+filters).show();
-            Filter f1 = new Filter();
-            f1.text = filters;
-            f1.hiding = true;
-            filterList.add(f1);
+            JsonObject project = jsonObject.getJsonObject("project");
+            JsonObject changeset = project.getJsonObject("changeset");
+            JsonArray layerArray = project.getJsonArray("imagery");
+            JsonArray mapPaintStyles = project.getJsonArray("mapcss");
+
+            changesetSource =  changeset.getString("source");
+            changesetComment = changeset.getString("comment");
+
+            JsonArray filters = project.getJsonArray("filters");
+            for (int i = 0; i < filters.size(); i++) {
+                JsonObject filter = filters.getJsonObject(i);
+                Filter f1 = new Filter();
+                f1.text = filter.getString("filter");
+                f1.hiding = true;
+                filterList.add(f1);
+            }
 
             //remove current layers to prevent duplicate layers
             for (int k =0; k<ConfigPlugin.currentLayer.size(); k++) {

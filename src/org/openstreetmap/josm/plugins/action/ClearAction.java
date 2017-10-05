@@ -1,13 +1,12 @@
 package org.openstreetmap.josm.plugins.action;
 
-import java.awt.event.ActionEvent;
-import java.util.List;
-
-import org.openstreetmap.josm.Main;
 import org.openstreetmap.josm.actions.JosmAction;
 import org.openstreetmap.josm.data.osm.DataSet;
 import org.openstreetmap.josm.data.osm.Filter;
 import org.openstreetmap.josm.plugins.ConfigPlugin;
+
+import java.awt.event.ActionEvent;
+import java.util.List;
 
 import static org.openstreetmap.josm.gui.MainApplication.getMap;
 
