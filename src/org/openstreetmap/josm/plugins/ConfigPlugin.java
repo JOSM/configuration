@@ -9,6 +9,7 @@ import org.openstreetmap.josm.gui.help.HelpUtil;
 import org.openstreetmap.josm.data.preferences.sources.SourceEntry;
 import org.openstreetmap.josm.plugins.action.ClearAction;
 
+import static org.openstreetmap.josm.gui.MainApplication.getMenu;
 import static org.openstreetmap.josm.gui.mappaint.mapcss.ExpressionFactory.Functions.tr;
 
 public class ConfigPlugin extends Plugin {
@@ -18,9 +19,9 @@ public class ConfigPlugin extends Plugin {
 
     public ConfigPlugin(PluginInformation info) {
         super(info);
-        final JMenu loadTaskMenu = Main.main.menu.addMenu(
+        final JMenu loadTaskMenu = getMenu().addMenu(
                 "Task config", tr("Task config"), KeyEvent.VK_K,
-                Main.main.menu.getDefaultMenuPos(), HelpUtil.ht("/Plugin/task")
+                getMenu().getDefaultMenuPos(), HelpUtil.ht("/Plugin/task")
         );
         //add  new config task - Action
         loadTaskMenu.add(new JMenuItem(new AddNewConfigTaskAction("Load task from URL")));

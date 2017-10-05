@@ -9,6 +9,8 @@ import org.openstreetmap.josm.data.osm.DataSet;
 import org.openstreetmap.josm.data.osm.Filter;
 import org.openstreetmap.josm.plugins.ConfigPlugin;
 
+import static org.openstreetmap.josm.gui.MainApplication.getMap;
+
 /**
  * Created by aarthychandrasekhar on 02/12/15.
  */
@@ -24,16 +26,14 @@ public class ClearAction extends JosmAction {
 
         for (int i=0; i< ConfigPlugin.currentLayer.size(); i++){
             getLayerManager().removeLayer(ConfigPlugin.currentLayer.get(i));
-
-           // new Notification("yahallo" + Main.pref.getCollection("mappaint.style.entries")).show();
         }
 
-        List<Filter> existingFilters = Main.map.filterDialog.getFilterModel().getFilters();
+        List<Filter> existingFilters = getMap().filterDialog.getFilterModel().getFilters();
         for (int i = 0; i < existingFilters.size(); i++) {
-            Main.map.filterDialog.getFilterModel().removeFilter(i);
+            getMap().filterDialog.getFilterModel().removeFilter(i);
 
         }
-        Main.map.filterDialog.getFilterModel().executeFilters();
+        getMap().filterDialog.getFilterModel().executeFilters();
 
         DataSet ds = getLayerManager().getEditDataSet();
         if (ds != null) {

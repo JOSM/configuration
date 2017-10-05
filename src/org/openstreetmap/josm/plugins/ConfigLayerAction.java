@@ -27,6 +27,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.openstreetmap.josm.gui.MainApplication.getMap;
+
 /**
  * Created by aarthychandrasekhar on 09/10/15.
  */
@@ -140,7 +142,7 @@ public class ConfigLayerAction extends JosmAction implements DataSetListenerAdap
     private void registerNewLayer(OsmDataLayer layer) {
         if(alreadyLoaded != true) {
             layer.data.addDataSetListener(dataSetListenerAdapter);
-            FilterTableModel filterTableModel = Main.map.filterDialog.getFilterModel();
+            FilterTableModel filterTableModel = getMap().filterDialog.getFilterModel();
 
             List<Filter> existingFilters = filterTableModel.getFilters();
             for (int i = 0; i < existingFilters.size(); i++) {
