@@ -45,6 +45,29 @@ public class ConfigLayerAction extends JosmAction implements DataSetListenerAdap
         this.URL = URL;
     }
 
+    private void updateFilters () {
+        FilterTableModel filterTableModel = getMap().filterDialog.getFilterModel();
+
+        List<Filter> existingFilters = filterTableModel.getFilters();
+        for (int i = 0; i < existingFilters.size(); i++) {
+            filterTableModel.removeFilter(i);
+        }
+
+        for(Filter f: filterList){
+            filterTableModel.addFilter(f);
+        }
+        filterTableModel.executeFilters();
+    }
+
+    private void updateChangesetDetails () {
+        DataSet ds = getLayerManager().getEditDataSet();
+        if (ds != null) {
+            //set changeset source and comment
+            ds.addChangeSetTag("source", changesetSource);
+            ds.addChangeSetTag("comment", changesetComment);
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         for (TaskLayer taskLayer : taskLayers) {
@@ -66,6 +89,7 @@ public class ConfigLayerAction extends JosmAction implements DataSetListenerAdap
 
             changesetSource =  changeset.getString("source");
             changesetComment = changeset.getString("comment");
+            updateChangesetDetails();
 
             JsonArray filters = project.getJsonArray("filters");
             for (int i = 0; i < filters.size(); i++) {
@@ -75,11 +99,13 @@ public class ConfigLayerAction extends JosmAction implements DataSetListenerAdap
                 f1.hiding = true;
                 filterList.add(f1);
             }
+            updateFilters();
 
             //remove current layers to prevent duplicate layers
-            for (int k =0; k<ConfigPlugin.currentLayer.size(); k++) {
+            for (int k =0; k < ConfigPlugin.currentLayer.size(); k++) {
                 getLayerManager().removeLayer(ConfigPlugin.currentLayer.get(k));
             }
+            ConfigPlugin.currentLayer.clear();
 
             //adding new layers
             for (int i = 0; i < layerArray.size(); i++) {
@@ -116,12 +142,7 @@ public class ConfigLayerAction extends JosmAction implements DataSetListenerAdap
 
     @Override
     public void processDatasetEvent(AbstractDatasetChangedEvent abstractDatasetChangedEvent) {
-        DataSet ds = getLayerManager().getEditDataSet();
-        if (ds != null) {
-            //set changeset source and comment
-            ds.addChangeSetTag("source", changesetSource);
-            ds.addChangeSetTag("comment", changesetComment);
-        }
+        updateChangesetDetails();
     }
 
     @Override
@@ -146,19 +167,7 @@ public class ConfigLayerAction extends JosmAction implements DataSetListenerAdap
     private void registerNewLayer(OsmDataLayer layer) {
         if(alreadyLoaded != true) {
             layer.data.addDataSetListener(dataSetListenerAdapter);
-            FilterTableModel filterTableModel = getMap().filterDialog.getFilterModel();
-
-            List<Filter> existingFilters = filterTableModel.getFilters();
-            for (int i = 0; i < existingFilters.size(); i++) {
-                filterTableModel.removeFilter(i);
-
-            }
-
-            for(Filter f: filterList){
-                filterTableModel.addFilter(f);
-            }
-
-            filterTableModel.executeFilters();
+            updateFilters();
 //            for (SourceEntry sc : mapPaintStyleSourceEntries) {
 //                boolean flag = false;
 //                List<StyleSource> styleSources = MapPaintStyles.getStyles().getStyleSources();

@@ -26,6 +26,7 @@ public class ClearAction extends JosmAction {
         for (int i=0; i< ConfigPlugin.currentLayer.size(); i++){
             getLayerManager().removeLayer(ConfigPlugin.currentLayer.get(i));
         }
+        ConfigPlugin.currentLayer.clear();
 
         List<Filter> existingFilters = getMap().filterDialog.getFilterModel().getFilters();
         for (int i = 0; i < existingFilters.size(); i++) {
