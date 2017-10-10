@@ -1,14 +1,14 @@
 package org.openstreetmap.josm.plugins.action;
 
-import org.openstreetmap.josm.Main;
 import org.openstreetmap.josm.actions.JosmAction;
+import org.openstreetmap.josm.data.osm.DataSet;
 import org.openstreetmap.josm.data.osm.Filter;
-import org.openstreetmap.josm.gui.MapView;
-import org.openstreetmap.josm.gui.Notification;
 import org.openstreetmap.josm.plugins.ConfigPlugin;
 
 import java.awt.event.ActionEvent;
 import java.util.List;
+
+import static org.openstreetmap.josm.gui.MainApplication.getMap;
 
 /**
  * Created by aarthychandrasekhar on 02/12/15.
@@ -24,21 +24,21 @@ public class ClearAction extends JosmAction {
     public void actionPerformed(ActionEvent e) {
 
         for (int i=0; i< ConfigPlugin.currentLayer.size(); i++){
-            Main.main.removeLayer(ConfigPlugin.currentLayer.get(i));
-
-           // new Notification("yahallo" + Main.pref.getCollection("mappaint.style.entries")).show();
+            getLayerManager().removeLayer(ConfigPlugin.currentLayer.get(i));
         }
+        ConfigPlugin.currentLayer.clear();
 
-        List<Filter> existingFilters = Main.map.filterDialog.getFilterModel().getFilters();
+        List<Filter> existingFilters = getMap().filterDialog.getFilterModel().getFilters();
         for (int i = 0; i < existingFilters.size(); i++) {
-            Main.map.filterDialog.getFilterModel().removeFilter(i);
+            getMap().filterDialog.getFilterModel().removeFilter(i);
 
         }
-        Main.map.filterDialog.getFilterModel().executeFilters();
+        getMap().filterDialog.getFilterModel().executeFilters();
 
-        Main.main.getCurrentDataSet().addChangeSetTag("source", "");
-        Main.main.getCurrentDataSet().addChangeSetTag("comment", "");
-
-
+        DataSet ds = getLayerManager().getEditDataSet();
+        if (ds != null) {
+            ds.addChangeSetTag("source", "");
+            ds.addChangeSetTag("comment", "");
+        }
     }
 }

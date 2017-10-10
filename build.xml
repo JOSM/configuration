@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="josm-config" default="dist" basedir=".">
     <property name="commit.message" value="Commit message"/>
-    <property name="plugin.main.version" value="7001"/>
+    <property name="plugin.main.version" value="12921"/>
     <property name="plugin.author" value="Aarthy KC"/>
     <property name="plugin.class" value="org.openstreetmap.josm.plugins.ConfigPlugin"/>
     <property name="plugin.description" value="..."/>

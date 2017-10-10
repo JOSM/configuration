@@ -8,7 +8,6 @@ import javax.json.JsonObject;
 import javax.net.ssl.HttpsURLConnection;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import org.openstreetmap.josm.gui.Notification;
 
 public class LoadTaskConfig {
 
