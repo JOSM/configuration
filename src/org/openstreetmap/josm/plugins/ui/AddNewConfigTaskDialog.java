@@ -23,7 +23,6 @@ import org.openstreetmap.josm.gui.util.WindowGeometry;
  *
  * @author ruben
  */
-@SuppressWarnings("serial")
 public final class AddNewConfigTaskDialog extends JDialog {
 
     static private AddNewConfigTaskDialog instance = null;
@@ -38,8 +37,6 @@ public final class AddNewConfigTaskDialog extends JDialog {
     }
 
     static public final Dimension PREFERRED_SIZE = new Dimension(80, 150);
-    private OKAction okAction = null;
-    private CancelAction cancelAction = null;
 
     //constructor
     protected AddNewConfigTaskDialog() {
@@ -76,8 +73,8 @@ public final class AddNewConfigTaskDialog extends JDialog {
     protected JPanel buildButtonRow() {
         //ok and cancel button
         JPanel pnl = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        pnl.add(new JButton(okAction = new OKAction()));
-        pnl.add(new JButton(cancelAction = new CancelAction()));
+        pnl.add(new JButton(new OKAction()));
+        pnl.add(new JButton(new CancelAction()));
         return pnl;
     }
 

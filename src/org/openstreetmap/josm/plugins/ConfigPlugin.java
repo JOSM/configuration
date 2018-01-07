@@ -1,16 +1,19 @@
 package org.openstreetmap.josm.plugins;
 
-import org.openstreetmap.josm.plugins.action.AddNewConfigTaskAction;
-import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import javax.swing.*;
-import org.openstreetmap.josm.Main;
-import org.openstreetmap.josm.gui.help.HelpUtil;
-import org.openstreetmap.josm.data.preferences.sources.SourceEntry;
-import org.openstreetmap.josm.plugins.action.ClearAction;
-
 import static org.openstreetmap.josm.gui.MainApplication.getMenu;
 import static org.openstreetmap.josm.gui.mappaint.mapcss.ExpressionFactory.Functions.tr;
+
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JSeparator;
+
+import org.openstreetmap.josm.data.preferences.sources.SourceEntry;
+import org.openstreetmap.josm.gui.help.HelpUtil;
+import org.openstreetmap.josm.plugins.action.AddNewConfigTaskAction;
+import org.openstreetmap.josm.plugins.action.ClearAction;
 
 public class ConfigPlugin extends Plugin {
 
