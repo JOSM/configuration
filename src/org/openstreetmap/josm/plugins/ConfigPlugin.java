@@ -22,8 +22,8 @@ public class ConfigPlugin extends Plugin {
 
     public ConfigPlugin(PluginInformation info) {
         super(info);
-        final JMenu loadTaskMenu = getMenu().addMenu(
-                "Task config", tr("Task config"), KeyEvent.VK_K,
+        final JMenu loadTaskMenu = getMenu()
+                .addMenu("Task config", tr("Task config"), KeyEvent.VK_K,
                 getMenu().getDefaultMenuPos(), HelpUtil.ht("/Plugin/task")
         );
         //add  new config task - Action
