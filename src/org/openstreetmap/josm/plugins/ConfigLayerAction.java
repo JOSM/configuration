@@ -166,7 +166,7 @@ public class ConfigLayerAction extends JosmAction implements DataSetListenerAdap
     }
     private void registerNewLayer(OsmDataLayer layer) {
         if(alreadyLoaded != true) {
-            layer.data.addDataSetListener(dataSetListenerAdapter);
+            layer.getDataSet().addDataSetListener(dataSetListenerAdapter);
             updateFilters();
 //            for (SourceEntry sc : mapPaintStyleSourceEntries) {
 //                boolean flag = false;
@@ -187,7 +187,7 @@ public class ConfigLayerAction extends JosmAction implements DataSetListenerAdap
     }
 
     private void unRegisterNewLayer(OsmDataLayer layer) {
-        layer.data.removeDataSetListener(dataSetListenerAdapter);
+        layer.getDataSet().removeDataSetListener(dataSetListenerAdapter);
     }
 
 }
