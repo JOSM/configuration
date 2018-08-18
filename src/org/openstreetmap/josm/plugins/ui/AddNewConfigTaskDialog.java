@@ -1,11 +1,14 @@
 package org.openstreetmap.josm.plugins.ui;
 
+import static org.openstreetmap.josm.gui.mappaint.mapcss.ExpressionFactory.Functions.tr;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -13,11 +16,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
-import org.openstreetmap.josm.Main;
-import org.openstreetmap.josm.plugins.ConfigLayerAction;
-import static org.openstreetmap.josm.gui.mappaint.mapcss.ExpressionFactory.Functions.tr;
-import org.openstreetmap.josm.tools.ImageProvider;
+
+import org.openstreetmap.josm.gui.MainApplication;
 import org.openstreetmap.josm.gui.util.WindowGeometry;
+import org.openstreetmap.josm.plugins.ConfigLayerAction;
+import org.openstreetmap.josm.tools.ImageProvider;
 
 /**
  *
@@ -84,7 +87,7 @@ public final class AddNewConfigTaskDialog extends JDialog {
             new WindowGeometry(
                     getClass().getName() + ".geometry",
                     WindowGeometry.centerInWindow(
-                            Main.parent,
+                            MainApplication.getMainFrame(),
                             PREFERRED_SIZE
                     )
             ).applySafe(this);
