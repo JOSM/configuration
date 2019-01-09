@@ -1,7 +1,7 @@
 package org.openstreetmap.josm.plugins;
 
 import static org.openstreetmap.josm.gui.MainApplication.getMenu;
-import static org.openstreetmap.josm.gui.mappaint.mapcss.ExpressionFactory.Functions.tr;
+import static org.openstreetmap.josm.tools.I18n.tr;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
