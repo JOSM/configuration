@@ -1,13 +1,18 @@
 package org.openstreetmap.josm.plugins;
 
 import java.io.IOException;
+import java.net.URI;
 import java.net.URL;
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonObject;
+import jakarta.json.Json;
+import jakarta.json.JsonArray;
+import jakarta.json.JsonObject;
+import jakarta.json.JsonReader;
+
 import javax.net.ssl.HttpsURLConnection;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+
+import org.openstreetmap.josm.tools.Logging;
 
 public class LoadTaskConfig {
 
@@ -18,10 +23,12 @@ public class LoadTaskConfig {
     }
 
     public void load() {
+        JsonReader reader = null;
         try {
-            URL obj = new URL(Settings.URL_TASKS);
+            URL obj = URI.create(Settings.URL_TASKS).toURL();
             HttpsURLConnection httpURLConnection = (HttpsURLConnection) obj.openConnection();
-            JsonObject jsonObject = Json.createReader(httpURLConnection.getInputStream()).readObject();
+            reader = Json.createReader(httpURLConnection.getInputStream());
+            JsonObject jsonObject = reader.readObject();
             JsonArray tasksArray = jsonObject.getJsonArray("tasks");
             for (int i = 0; i < tasksArray.size(); i++) {
                 JsonObject task = tasksArray.getJsonObject(i);
@@ -32,8 +39,11 @@ public class LoadTaskConfig {
             }
 
         } catch (IOException e) {
-
-
+            Logging.trace(e);
+        } finally {
+            if (reader != null) {
+                reader.close();
+            }
         }
     }
 

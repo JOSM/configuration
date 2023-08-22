@@ -16,12 +16,16 @@ import org.openstreetmap.josm.gui.layer.LayerManager.LayerChangeListener;
 import org.openstreetmap.josm.gui.layer.LayerManager.LayerOrderChangeEvent;
 import org.openstreetmap.josm.gui.layer.LayerManager.LayerRemoveEvent;
 import org.openstreetmap.josm.gui.layer.OsmDataLayer;
+import org.openstreetmap.josm.tools.Logging;
 
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonObject;
+import jakarta.json.Json;
+import jakarta.json.JsonArray;
+import jakarta.json.JsonObject;
+import jakarta.json.JsonReader;
+
 import javax.net.ssl.HttpsURLConnection;
 import java.awt.event.ActionEvent;
+import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,13 +36,13 @@ import static org.openstreetmap.josm.gui.MainApplication.getMap;
  * Created by aarthychandrasekhar on 09/10/15.
  */
 public class ConfigLayerAction extends JosmAction implements DataSetListenerAdapter.Listener, LayerChangeListener {
-    ArrayList<TaskLayer> taskLayers = new ArrayList<TaskLayer>();
-    ArrayList<SourceEntry> mapPaintStyleSourceEntries = new ArrayList<SourceEntry>();
-    List<Filter> filterList = new ArrayList<Filter>();
+    ArrayList<TaskLayer> taskLayers = new ArrayList<>();
+    ArrayList<SourceEntry> mapPaintStyleSourceEntries = new ArrayList<>();
+    List<Filter> filterList = new ArrayList<>();
     DataSetListenerAdapter dataSetListenerAdapter = new DataSetListenerAdapter(this);
     String changesetSource,changesetComment;
     MapFrameListener mapFrameListener;
-    boolean alreadyLoaded = false;
+    boolean alreadyLoaded;
     String URL;
     public ConfigLayerAction(String name, String URL) {
         super(name, null, name, null , true);
@@ -77,11 +81,13 @@ public class ConfigLayerAction extends JosmAction implements DataSetListenerAdap
         String layerName, layerUrl;
 
 
+        JsonReader reader = null;
         try {
-            URL obj = new URL(URL);
+            URL obj = URI.create(URL).toURL();
             HttpsURLConnection httpURLConnection = (HttpsURLConnection) obj.openConnection();
 
-            JsonObject jsonObject = Json.createReader(httpURLConnection.getInputStream()).readObject();
+            reader = Json.createReader(httpURLConnection.getInputStream());
+            JsonObject jsonObject = reader.readObject();
             JsonObject project = jsonObject.getJsonObject("project");
             JsonObject changeset = project.getJsonObject("changeset");
             JsonArray layerArray = project.getJsonArray("imagery");
@@ -135,8 +141,12 @@ public class ConfigLayerAction extends JosmAction implements DataSetListenerAdap
             getLayerManager().addLayerChangeListener(this);
             alreadyLoaded = false;
         } catch (Exception e1) {
-            e1.printStackTrace();
-            new Notification("ConfigLayerAction:"+e1.toString()).show();
+            Logging.trace(e1);
+            new Notification("ConfigLayerAction:"+ e1).show();
+        } finally {
+            if (reader != null) {
+                reader.close();
+            }
         }
     }
 
@@ -165,7 +175,7 @@ public class ConfigLayerAction extends JosmAction implements DataSetListenerAdap
         }
     }
     private void registerNewLayer(OsmDataLayer layer) {
-        if(alreadyLoaded != true) {
+        if(!alreadyLoaded) {
             layer.getDataSet().addDataSetListener(dataSetListenerAdapter);
             updateFilters();
 //            for (SourceEntry sc : mapPaintStyleSourceEntries) {

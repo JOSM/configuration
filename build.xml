@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="config" default="dist" basedir=".">
     <property name="commit.message" value="Commit message"/>
-    <property name="plugin.main.version" value="14153"/>
+    <property name="plugin.main.version" value="18723"/>
     <property name="plugin.author" value="Aarthy KC"/>
     <property name="plugin.class" value="org.openstreetmap.josm.plugins.ConfigPlugin"/>
     <property name="plugin.description" value="Task configurations"/>
@@ -13,6 +13,7 @@
     <target name="additional-manifest">
         <manifest file="MANIFEST" mode="update">
             <attribute name="13558_Plugin-Url" value="v1.2;https://github.com/JOSM/configuration/releases/download/v1.2/config.jar" />
+            <attribute name="14153_Plugin-Url" value="v1.2.2;https://github.com/JOSM/configuration/releases/download/v1.2.2/config.jar" />
         </manifest>
     </target>
     <!-- ** include targets that all plugins have in common ** -->
