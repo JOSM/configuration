@@ -46,5 +46,6 @@ jobs:
     with:
       josm-revision: ${{ matrix.josm-revision }}
       perform-revision-tagging: ${{  matrix.josm-revision == 'r19044' && needs.check-release-needed.outputs.release_needed == 'true' }}
+      plugin-jar-name: 'config'
     secrets: inherit
 
