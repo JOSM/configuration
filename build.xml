@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="config" default="dist" basedir=".">
-    <property name="commit.message" value="Commit message"/>
-    <property name="plugin.main.version" value="19044"/>
-    <property name="plugin.author" value="Aarthy KC"/>
-    <property name="plugin.class" value="org.openstreetmap.josm.plugins.ConfigPlugin"/>
-    <property name="plugin.description" value="Task configurations"/>
-	<!--<property name="plugin.icon" value="..."/>-->
-	<!--<property name="plugin.link" value="..."/>-->
-    <!--<property name="plugin.early" value="..."/>-->
-    <!--<property name="plugin.requires" value="..."/>-->
-    <!--<property name="plugin.stage" value="..."/>-->
-    <target name="additional-manifest">
-        <manifest file="MANIFEST" mode="update">
-            <attribute name="13558_Plugin-Url" value="v1.2;https://github.com/JOSM/configuration/releases/download/v1.2/config.jar" />
-            <attribute name="14153_Plugin-Url" value="v1.2.2;https://github.com/JOSM/configuration/releases/download/v1.2.2/config.jar" />
-        </manifest>
-    </target>
-    <!-- ** include targets that all plugins have in common ** -->
-    <import file="../build-common.xml"/>
-  
+  <property name="commit.message" value="Commit message"/>
+  <property name="plugin.main.version" value="19044"/>
+  <property name="plugin.author" value="Aarthy KC"/>
+  <property name="plugin.class" value="org.openstreetmap.josm.plugins.ConfigPlugin"/>
+  <property name="plugin.description" value="Task configurations"/>
+  <!--<property name="plugin.icon" value="..."/>-->
+  <!--<property name="plugin.link" value="..."/>-->
+  <!--<property name="plugin.early" value="..."/>-->
+  <!--<property name="plugin.requires" value="..."/>-->
+  <!--<property name="plugin.stage" value="..."/>-->
+  <target name="additional-manifest">
+    <manifest file="MANIFEST" mode="update">
+      <attribute name="13558_Plugin-Url" value="v1.2;https://github.com/JOSM/configuration/releases/download/v1.2/config.jar"/>
+      <attribute name="14153_Plugin-Url" value="v1.2.2;https://github.com/JOSM/configuration/releases/download/v1.2.2/config.jar"/>
+    </manifest>
+  </target>
+  <!-- ** include targets that all plugins have in common ** -->
+  <import file="../build-common.xml"/>
 </project>
