@@ -6,7 +6,7 @@
     <artifactId>plugin-root</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
-  <artifactId>configuration</artifactId>
+  <artifactId>config</artifactId>
   <url>${plugin.link}</url>
   <developers>
     <developer>
